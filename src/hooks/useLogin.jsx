@@ -19,8 +19,21 @@ export function useLogin() {
       if (result.success) {
         //burada başarılı ise token aktif ediyoruz
         const storage = rememberMe ? localStorage : sessionStorage;
+        const otherStorage = rememberMe ? sessionStorage : localStorage;
+        otherStorage.removeItem("accessToken");
+        otherStorage.removeItem("user");
+        otherStorage.removeItem("rememberedMail");
+        otherStorage.removeItem("rememberedPassword");
         storage.setItem("accessToken", result.data.accessToken);
         storage.setItem("user", JSON.stringify(result.data.user));
+
+        if (rememberMe) {
+          localStorage.setItem("rememberedMail", email);
+          localStorage.setItem("rememberedPassword", password);
+        } else {
+          localStorage.removeItem("rememberedMail");
+          localStorage.removeItem("rememberedPassword");
+        }
         navigate("/dashboard");
       }
     } catch (err) {

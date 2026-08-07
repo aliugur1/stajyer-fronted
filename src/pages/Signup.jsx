@@ -250,7 +250,7 @@ function SignUp() {
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   {t("signUp.home")}
                   <a
-                    href="#"
+                    href=""
                     onClick={() => navigate("/")}
                     className=" hover:cursor-pointer font-medium text-primary-600 hover:underline dark:text-primary-500 cursor:pointer;"
                   >

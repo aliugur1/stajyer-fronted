@@ -23,7 +23,6 @@ function ModalExit({ isModalOpen, onClose }) {
     //   return;
     // }
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
     sessionStorage.removeItem("accessToken");
     sessionStorage.removeItem("user");
     return await navigate(`/`);
