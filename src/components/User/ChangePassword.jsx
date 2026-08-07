@@ -15,6 +15,8 @@ export function ChangePassword() {
   const [loading, setLoading] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
+  const [showPassword3, setShowPassword3] = useState(false);
   const { PutData } = usePut();
   const changePassword = async () => {
     return await PutData("users", "change-password", "", {
@@ -45,6 +47,8 @@ export function ChangePassword() {
     }
   };
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
+  const handleClickShowPassword3 = () => setShowPassword3((show) => !show);
   if (error) {
     return <div className="text-red-500">{error}</div>;
   }
@@ -110,7 +114,7 @@ export function ChangePassword() {
                 <div className="relative">
                   <input
                     id="new-password"
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword2 ? "text" : "password"}
                     value={formData.password}
                     onChange={(e) =>
                       setFormData({ ...formData, password: e.target.value })
@@ -121,15 +125,15 @@ export function ChangePassword() {
                   />
                   <button
                     type="button"
-                    onClick={handleClickShowPassword}
+                    onClick={handleClickShowPassword2}
                     aria-label={
-                      showPassword
+                      showPassword2
                         ? "hide the password"
                         : "display the password"
                     }
                     className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 dark:text-gray-400"
                   >
-                    {showPassword ? (
+                    {showPassword2 ? (
                       <EyeSlashIcon className="w-5 h-5" />
                     ) : (
                       <EyeIcon className="w-5 h-5" />
@@ -147,7 +151,7 @@ export function ChangePassword() {
                 <div className="relative">
                   <input
                     id="new-passwordConfirm"
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword3 ? "text" : "password"}
                     value={formData.passwordConfirm}
                     onChange={(e) =>
                       setFormData({
@@ -161,15 +165,15 @@ export function ChangePassword() {
                   />
                   <button
                     type="button"
-                    onClick={handleClickShowPassword}
+                    onClick={handleClickShowPassword3}
                     aria-label={
-                      showPassword
+                      showPassword3
                         ? "hide the password"
                         : "display the password"
                     }
                     className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 dark:text-gray-400"
                   >
-                    {showPassword ? (
+                    {showPassword3 ? (
                       <EyeSlashIcon className="w-5 h-5" />
                     ) : (
                       <EyeIcon className="w-5 h-5" />
