@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { usePut } from "../../hooks/usePut";
 import { api } from "../../api/ApiKey";
 import { useTranslation } from "react-i18next";
-
+import ComplexNavbar from "../Navbar";
 export function CurrentUser() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -54,6 +54,8 @@ export function CurrentUser() {
     return <div className="text-blue-500">{t("UCUl")} </div>;
   }
   return (
+    <div className="md:pl-16">
+          <ComplexNavbar />
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:min-h-screen lg:py-0">
         <h1 className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
@@ -213,7 +215,7 @@ export function CurrentUser() {
               <div className="flex gap-4">
                 <button
                   type="button"
-                  onClick={() => navigate(`/users`)}
+                  onClick={() => navigate(-1)}
                   disabled={loading}
                   className="w-full text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
                 >
@@ -232,6 +234,7 @@ export function CurrentUser() {
         </div>
       </div>
     </section>
+    </div>
   );
 }
 

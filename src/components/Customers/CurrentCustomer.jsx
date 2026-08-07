@@ -5,6 +5,7 @@ import CompanyCustomer from "../Customers/CompanyCustomer";
 import { usePut } from "../../hooks/usePut";
 import ModalLoading from "../Modal/ModalLoading";
 import { useTranslation } from "react-i18next";
+import ComplexNavbar from "../Navbar";
 
 function CurrentCustomer() {
   const { t } = useTranslation();
@@ -71,7 +72,9 @@ function CurrentCustomer() {
     );
   }
   return (
-    <section className="bg-gray-50 dark:bg-gray-900">
+    <div className="md:pl-16">
+      <ComplexNavbar />
+      <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:min-h-screen lg:py-0">
         <a
           href="#"
@@ -306,6 +309,8 @@ function CurrentCustomer() {
         </div>
       </div>
     </section>
+    </div>
+    
   );
 }
 
