@@ -8,9 +8,11 @@ import SummaryCard from "../components/SummaryCard";
 import { UsersIcon, StarIcon } from "@heroicons/react/24/solid";
 import ModalLoading from "../components/Modal/ModalLoading";
 import { useTranslation } from "react-i18next";
+import Labels from "../components/Labels"
 
 export default function Dashboard() {
   const { t } = useTranslation();
+  const TypeLabels= Labels();
   const [dashboardData, setDashboardData] = useState("");
   useEffect(() => {
     const getAllData = async () => {
@@ -92,7 +94,7 @@ export default function Dashboard() {
     card: [
       {
         title: t("DST5"),
-        price: dashboardData?.data?.topPumps[0]?.fuelType,
+        price: TypeLabels[dashboardData?.data?.topPumps[0]?.fuelType] ||dashboardData?.data?.topPumps[0]?.fuelType,
       },
       {
         title: t("DST2"),
@@ -108,13 +110,7 @@ export default function Dashboard() {
       },
     ],
   };
-const fuelTypeLabels = {
-  PREMIUM_DIESEL: t("FT1"),
-  DIESEL: t("FT2"),
-  GASOLINE_95: t("FT3"),
-  GASOLINE_97: t("FT4"),
-  LPG: t("FT5"),
-};
+
 
   return (
     <div className="md:pl-16">
@@ -141,7 +137,7 @@ const fuelTypeLabels = {
             <PieChart
             name={t("pieChart.name")}
               data={dashboardData?.data?.fuelDistribution?.map((d) => ({
-                label: fuelTypeLabels[d?.fuelType] || d?.fuelType,
+                label: TypeLabels[d?.fuelType] || d?.fuelType,
                 value: d.percentage,
               }))}
             />
@@ -150,7 +146,7 @@ const fuelTypeLabels = {
             
             <PieChart
               data={dashboardData?.data?.pumpStatusDistribution?.map((d) => ({
-                label: d.status,
+                label: TypeLabels[d?.status] || d?.status,
                 value: d.count,
               }))}
               name={t("pieChart.name1")}

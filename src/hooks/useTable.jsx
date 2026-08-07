@@ -4,20 +4,26 @@ import {
 } from "material-react-table";
 
 export function useTable() {
-  const GetTable = ({ columns, data }) => {
+  const GetTable = ({ name,columns, data }) => {
     const table = useMaterialReactTable({
       columns: columns || [],
       data: data || [],
       enableRowSelection: true,
       initialState: {
-        pagination: { pageSize: 5, pageIndex: 0 },
+        pagination: { pageSize: 10, pageIndex: 0 },
       },
       muiPaginationProps: {
-        rowsPerPageOptions: [5, 10,15, 20],
+        rowsPerPageOptions: [5, 10, 15, 20],
       },
       layoutMode: "grid",
     });
-    return <MaterialReactTable table={table} />;
+    return (
+      <div>
+        <h3 className="font-bold text-slate-900 mb-6">{name}</h3>
+        <MaterialReactTable table={table} />
+      </div>
+    )
+    
   };
   return { GetTable };
 }

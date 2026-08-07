@@ -7,6 +7,7 @@ import SummaryCard from "../SummaryCard";
 import { useTable } from "../../hooks/useTable";
 import ModalLoading from "../Modal/ModalLoading";
 import { useTranslation } from "react-i18next";
+import Labels from "../Labels";
 // import {
 //   MaterialReactTable,
 //   useMaterialReactTable,
@@ -19,6 +20,7 @@ export default function PumpDetails() {
   const [fuelSummaryData, setFuelSummaryData] = useState("");
   const [maintenanceData, setMaintenanceData] = useState("");
   const [salesData, setSalesData] = useState("");
+  const TypeLabels= Labels();
   useEffect(() => {
     const getAllData = async () => {
       const data = await api(`/api/pumps/${id}`); //burada ip de statics gidiyoruz
@@ -168,11 +170,13 @@ export default function PumpDetails() {
       {
         accessorKey: "fuelType",
         header: t("PT5"),
+        Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",
         size: 100,
       },
       {
         accessorKey: "paymentType",
         header: t("PT6"),
+        Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",
         size: 100,
       },
       {
@@ -187,7 +191,7 @@ export default function PumpDetails() {
         size: 100,
       },
     ],
-    [t],
+    [t,TypeLabels],
   );
   // const table = useMaterialReactTable({
   //   columns,
