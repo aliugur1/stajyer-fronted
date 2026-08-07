@@ -55,6 +55,7 @@ const PumpsList = ({ data, globalFilter, onGlobalFilterChange }) => {
       {
         accessorKey: "lastSaleAt",
         header: t("PL9"),
+        Cell: ({ cell }) => cell.getValue() ? new Date(cell.getValue()).toLocaleDateString("tr-TR") : "-", // tarihi formatlıyor
         size: 100,
       },
     ],

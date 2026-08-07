@@ -183,6 +183,7 @@ export default function PumpDetails() {
       {
         accessorKey: "createdAt",
         header: t("PT8"),
+        Cell: ({ cell }) => cell.getValue() ? new Date(cell.getValue()).toLocaleDateString("tr-TR") : "-",
         size: 100,
       },
     ],
