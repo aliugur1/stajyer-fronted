@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../api/ApiKey";
 import ModalLoading from "..//components/Modal/ModalLoading";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "react-i18next";
 
 function SignUp() {
@@ -19,6 +20,8 @@ function SignUp() {
   });
   const [loading, setLoading] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
   const createUser = async (newUser) => {
     //burada backend veri gönderiyoruz
     return await axios.post(`${API_URL}/api/auth/register`, newUser);
@@ -44,7 +47,8 @@ function SignUp() {
       setLoading(false);
     }
   };
-
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
   if (error) {
     return <div className="text-red-500">{error}</div>;
   }
@@ -160,10 +164,12 @@ function SignUp() {
                     >
                       {t("login.password")}
                     </label>
+                     <div className="relative">
                     <input
                       type="password"
                       name="password"
                       id="password"
+                      type={showPassword ? "text" : "password"}
                       value={formData.password}
                       onChange={(e) =>
                         setFormData({ ...formData, password: e.target.value })
@@ -172,6 +178,23 @@ function SignUp() {
                       placeholder="*********"
                       required
                     />
+                    <button
+                    type="button"
+                    onClick={handleClickShowPassword}
+                    aria-label={
+                      showPassword2
+                        ? "hide the password"
+                        : "display the password"
+                    }
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 dark:text-gray-400"
+                  >
+                    {showPassword ? (
+                      <EyeSlashIcon className="w-5 h-5" />
+                    ) : (
+                      <EyeIcon className="w-5 h-5" />
+                    )}
+                  </button>
+                  </div>
                   </div>
                   <div className="flex-1">
                     <label
@@ -180,9 +203,11 @@ function SignUp() {
                     >
                       {t("signUp.ConfirmPassword")}
                     </label>
+                     <div className="relative">
                     <input
                       type="password"
                       name="passwordConfirm"
+                      type={showPassword2 ? "text" : "password"}
                       id="passwordConfirm"
                       value={formData.passwordConfirm}
                       onChange={(e) =>
@@ -195,6 +220,23 @@ function SignUp() {
                       placeholder="*********"
                       required
                     />
+                    <button
+                    type="button"
+                    onClick={handleClickShowPassword2}
+                    aria-label={
+                      showPassword2
+                        ? "hide the password"
+                        : "display the password"
+                    }
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 dark:text-gray-400"
+                  >
+                    {showPassword2 ? (
+                      <EyeSlashIcon className="w-5 h-5" />
+                    ) : (
+                      <EyeIcon className="w-5 h-5" />
+                    )}
+                  </button>
+                  </div>
                   </div>
                 </div>
                 <button
@@ -204,6 +246,7 @@ function SignUp() {
                 >
                   {t("signUp.signup")}
                 </button>
+
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   {t("signUp.home")}
                   <a
