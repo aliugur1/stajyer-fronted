@@ -187,7 +187,7 @@ export function ChangePassword() {
               <div className="flex gap-4">
                 <button
                   type="button"
-                  onClick={() => navigate(`/users`)}
+                  onClick={() => navigate(-1)}//-1 yapınca geri sayfaya gidiyor
                   disabled={loading}
                   className="w-full text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
                 >
