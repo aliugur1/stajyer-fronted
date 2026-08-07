@@ -154,7 +154,7 @@ const CustomersList = ({ data, globalFilter, onGlobalFilterChange }) => {
       <div className="w-full bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-3">
           <span className="text-xl font-bold text-gray-900">
-            {t("customerListName")}{" "}
+            {t("customerListName")}
           </span>
         </div>
         <div className="flex items-center gap-4">
@@ -164,12 +164,12 @@ const CustomersList = ({ data, globalFilter, onGlobalFilterChange }) => {
           >
             {t("customerListButton1")}
           </button>
-          <button
+          {/* <button
             onClick={newCustomer("COMPANY")}
             className="text-white bg-blue-900 hover:bg-blue-950 box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-3 py-2 focus:outline-none"
           >
             {t("customerListButton2")}
-          </button>
+          </button> */}
         </div>
       </div>
       <div>

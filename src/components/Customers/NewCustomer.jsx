@@ -12,7 +12,7 @@ export function NewCustomer() {
   const [loading, setLoading] = useState("");
   const [error, setError] = useState("");
   const { PostData } = usePost();
-  const customerType = location.state?.customerType || "INDIVIDUAL";
+  const [customerType,setCustomerType]= useState(location.state?.customerType || "INDIVIDUAL")
   const newCustomer = async () => {
     //burada backend veri gönderiyoruz
     return await PostData("customers", {
@@ -71,9 +71,25 @@ export function NewCustomer() {
         </a>
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h3 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              {t("newCustomer.n")}
-            </h3>
+            <div className="flex items-center gap-3">
+              <h3 className="text-xl font-bold text-gray-900">
+                {t("customerListButton1")}
+              </h3>
+            </div>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => setCustomerType("INDIVIDUAL")}
+                className="text-white bg-blue-600 hover:bg-blue-700 box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-3 py-2 focus:outline-none"
+              >
+                {t("customerListButton3")}
+              </button>
+              <button
+                onClick={() => setCustomerType("CORPORATE")}
+                className="text-white bg-blue-900 hover:bg-blue-950 box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-3 py-2 focus:outline-none"
+              >
+                {t("customerListButton2")}
+              </button>
+            </div>
             <form className="space-y-4 md:space-y-6" onSubmit={handleRegister}>
               <div>
                 <div className="flex gab-8 w-full ">
