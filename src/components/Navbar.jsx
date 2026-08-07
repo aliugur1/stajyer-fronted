@@ -144,7 +144,7 @@ export default function ComplexNavbar() {
         <div className={labelClass}>
           <DateNumberFormat />
         </div>
-        <div className="mt-4 flex flex-1 flex-col gap-1 overflow-y-auto">
+        <div className="mt-4 flex flex-1 flex-col gap-1 ">
           {navListItems.map(({ label, icon: Icon, path }) => {
             const isActive = location.pathname.startsWith(path);
             return (
@@ -259,7 +259,7 @@ export default function ComplexNavbar() {
         ) : (
           <Bars3Icon className="h-5 w-5" />
         )}
-        <span className="sr-only">{t("toggle.sidebar")} </span>
+        
       </button>
     </>
   );
