@@ -108,6 +108,14 @@ export default function Dashboard() {
       },
     ],
   };
+const fuelTypeLabels = {
+  PREMIUM_DIESEL: t("FT1"),
+  DIESEL: t("FT2"),
+  GASOLINE_95: t("FT3"),
+  GASOLINE_97: t("FT4"),
+  LPG: t("FT5"),
+};
+
   return (
     <div className="md:pl-16">
       <ComplexNavbar />
@@ -129,19 +137,23 @@ export default function Dashboard() {
       <div>
         <div className="flex flex-col md:flex-row gap-6">
           <div style={{ flex: 1, minWidth: 0 }}>
+            
             <PieChart
+            name={t("pieChart.name")}
               data={dashboardData?.data?.fuelDistribution?.map((d) => ({
-                label: d.fuelType,
+                label: fuelTypeLabels[d?.fuelType] || d?.fuelType,
                 value: d.percentage,
               }))}
             />
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
+            
             <PieChart
               data={dashboardData?.data?.pumpStatusDistribution?.map((d) => ({
                 label: d.status,
                 value: d.count,
               }))}
+              name={t("pieChart.name1")}
             />
           </div>
         </div>
