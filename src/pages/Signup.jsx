@@ -77,7 +77,7 @@ function SignUp() {
             </h3>
             <form className="space-y-4 md:space-y-6" onSubmit={handleRegister}>
               <div>
-                <div className="flex gab-8 w-full ">
+                <div className="flex gap-4 w-full ">
                   <div className="flex-1">
                     <label
                       htmlFor="firstName"
@@ -156,7 +156,7 @@ function SignUp() {
                   placeholder={t("signUp.phone")}
                   required
                 />
-                <div className="flex gab-8 w-full ">
+                <div className="flex gap-4 w-full ">
                   <div className="flex-1">
                     <label
                       htmlFor="password"
