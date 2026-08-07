@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import CompanyCustomer from "../Customers/CompanyCustomer";
 import { usePost } from "../../hooks/usePost";
 import { useTranslation } from "react-i18next";
+import ComplexNavbar from "../Navbar";
 
 export function NewCustomer() {
   const { t } = useTranslation();
@@ -59,6 +60,8 @@ export function NewCustomer() {
     return null;
   };
   return (
+    <div className="md:pl-16">
+          <ComplexNavbar />
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:min-h-screen lg:py-0">
         <a
@@ -306,7 +309,8 @@ export function NewCustomer() {
           </div>
         </div>
       </div>
-    </section>
+    </section></div>
+
   );
 }
 
