@@ -65,7 +65,7 @@ export function CurrentUser() {
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <form className="space-y-4 md:space-y-6" onSubmit={handleRegister}>
               <div>
-                <div className="flex gab-8 w-full ">
+                <div className="flex gap-4 w-full ">
                   <div className="flex-1">
                     <label
                       htmlFor="currentUser-firstName"
@@ -172,7 +172,7 @@ export function CurrentUser() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder={t("UCU6")}
                 />
-                <div className="flex gab-8 w-full ">
+                <div className="flex gap-4 w-full ">
                   <div className="flex-1">
                     <label
                       htmlFor="currentUser-city"
