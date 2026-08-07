@@ -10,10 +10,11 @@ export function useTable() {
       data: data || [],
       enableRowSelection: true,
       initialState: {
-        pagination: { pageSize: 5, pageIndex: 0 ,},
-        
+        pagination: { pageSize: 5, pageIndex: 0 },
       },
-      
+      muiPaginationProps: {
+        rowsPerPageOptions: [5, 10,15, 20],
+      },
       layoutMode: "grid",
     });
     return <MaterialReactTable table={table} />;
