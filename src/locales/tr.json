@@ -128,7 +128,8 @@
   "customer.changes": "Durum Değiştir",
   "customer.payment": "Ödeme Türü",
   "customer.purchase": "Son Alışlar",
-  "customer.dist": "Yakıt Dağıtımı ve Aylık Çizelge",
+  "customer.dist": "Yakıt Dağıtımı",
+  "customer.dist2": "Aylık Çizelge",
   "customerList1": "Adınız",
   "customerList2": "Soyadınız",
   "customerList3": "Firma Adı",
@@ -300,7 +301,28 @@
   "FT2": "Dizel",
   "FT3": "Kurşunsuz Benzin",
   "FT4": "Oktan Benzin",
-  "FT5": "LPG"
+  "FT5": "LPG",
+  "FT6": "AKTİF",
+  "FT7": "PASİF",
+  "FT8": "ARIZALI",
+  "FT9": "BAKIM",
+  "FT10": "Hesaba mahsuben",
+  "FT11": "NAKİT",
+  "FT12": "FİLO KARTI",
+  "FT13": "KREDİ KARTI",
+  "FT14":"POMPA",
+  "FT15":"KULLANICI",
+  "FT16":"MÜŞTERİ",
+  "FT17":"SATIŞ",
+  "FT18":"KURUMSAL",
+  "FT19":"BİREYSEL",
+  "FT20":"ALTIN",
+  "FT21":"BRONZ",
+  "FT22":"GÜMÜŞ",
+ "FT23":"PLATİN"
+
+
+
 
 
 }

@@ -6,10 +6,12 @@ import {
 } from "material-react-table";
 import ModalLoading from "../Modal/ModalLoading";
 import { useTranslation } from "react-i18next";
+import Labels from "../Labels";
 
 const PumpsList = ({ data, globalFilter, onGlobalFilterChange }) => {
   const { t } = useTranslation();
   const navigate = useNavigate("");
+  const TypeLabels= Labels();
   const columns = useMemo(
     () => [
       {
@@ -30,11 +32,13 @@ const PumpsList = ({ data, globalFilter, onGlobalFilterChange }) => {
       {
         accessorKey: "fuelType",
         header: t("PL4"),
+       Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",
         size: 100,
       },
       {
         accessorKey: "status",
         header: t("PL5"),
+        Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",
         size: 100,
       },
       {
@@ -55,20 +59,30 @@ const PumpsList = ({ data, globalFilter, onGlobalFilterChange }) => {
       {
         accessorKey: "lastSaleAt",
         header: t("PL9"),
-        Cell: ({ cell }) => cell.getValue() ? new Date(cell.getValue()).toLocaleDateString("tr-TR") : "-", // tarihi formatlıyor
+        Cell: ({ cell }) =>
+          cell.getValue()
+            ? new Date(cell.getValue()).toLocaleDateString("tr-TR")
+            : "-", // tarihi formatlıyor
         size: 100,
       },
     ],
-    [t],
+    [t,TypeLabels],
   );
   const table = useMaterialReactTable({
     columns,
     data,
     manualFiltering: true,
     onGlobalFilterChange,
+    initialState: {
+      pagination: { pageSize: 10, pageIndex: 0 },
+    },
+    muiPaginationProps: {
+      rowsPerPageOptions: [5, 10, 15, 20],
+    },
     state: {
       globalFilter,
     },
+
     // layoutMode: 'grid',//zorla size boyutunu girer
     muiTableBodyRowProps: ({ row }) => ({
       //data yerine row kullanmamız sebebi tabloda row kullanılması

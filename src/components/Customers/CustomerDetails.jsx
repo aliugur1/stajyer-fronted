@@ -8,9 +8,11 @@ import { usePatch } from "../../hooks/usePatch";
 import SummaryCard from "../SummaryCard";
 import ModalLoading from "../Modal/ModalLoading";
 import { useTranslation } from "react-i18next";
+import Labels from "../Labels";
 
 export default function CustomerDetails() {
   const { t } = useTranslation();
+  const TypeLabels = Labels();
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams();
@@ -38,7 +40,8 @@ export default function CustomerDetails() {
     () => [
       {
         accessorKey: "fuelType", //access nested data with dot notation
-        header: t("customer.FDB1"), //BURAYA data.name yazmadık çünkü veriyi data olarak alıyoruz
+        header: t("customer.FDB1"), 
+        Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",//BURAYA data.name yazmadık çünkü veriyi data olarak alıyoruz
         size: 80,
       },
       {
@@ -57,7 +60,7 @@ export default function CustomerDetails() {
         size: 70,
       },
     ],
-    [t],
+    [t,TypeLabels],
   );
   const monthlyChartColumns = useMemo(
     () => [
@@ -99,6 +102,7 @@ export default function CustomerDetails() {
       {
         accessorKey: "fuelType", //access nested data with dot notation
         header: t("customer.RSC3"), //BURAYA data.name yazmadık çünkü veriyi data olarak alıyoruz
+        Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",
         size: 100,
       },
       {
@@ -122,7 +126,7 @@ export default function CustomerDetails() {
         size: 100,
       },
     ],
-    [t],
+    [t,TypeLabels],
   );
   const summaryCustomer1 = {
     name: t("customer.SC11"),
@@ -160,16 +164,16 @@ export default function CustomerDetails() {
     card: [
       {
         title: t("customer.SC22"),
-        price: customer?.customerType,
+        price: TypeLabels[customer?.customerType] || customer?.customerType, //customer?.customerType,
       },
       {
         title: t("customerList4"),
-        price: customer?.loyaltyLevel,
+        price: TypeLabels[customer?.loyaltyLevel] ||customer?.loyaltyLevel,
       },
       {
         title: t("customerList8"),
         price:
-          customer?.status,
+          TypeLabels[customer?.status] ||customer?.status,
       },
       {
         title: t("customer.SC25"),
@@ -227,10 +231,6 @@ export default function CustomerDetails() {
     icon: " ",
     card: [
       {
-        title: t("customer.SP02"),
-        price: payment?.[0]?.paymentType,
-      },
-      {
         title: t("customer.SP03"),
         price: payment?.[0]?.count,
       },
@@ -245,13 +245,9 @@ export default function CustomerDetails() {
     ],
   };
   const summaryPayment1 = {
-    name: t("customer.SP11"),
+    name: t("FT12"),
     icon: " ",
     card: [
-      {
-        title: t("customer.SP12"),
-        price: payment?.[1]?.paymentType,
-      },
       {
         title: t("customer.SP13"),
         price: payment?.[1]?.count,
@@ -263,6 +259,42 @@ export default function CustomerDetails() {
       {
         title: t("customer.SP15"),
         price: payment?.[1]?.totalAmount,
+      },
+    ],
+  };
+  const summaryPayment2 = {
+    name: t("FT10"),
+    icon: " ",
+    card: [
+      {
+        title: t("customer.SP03"),
+        price: payment?.[2]?.count,
+      },
+      {
+        title: t("customer.SP04"),
+        price: payment?.[2]?.totalLiter,
+      },
+      {
+        title: t("customer.SP05"),
+        price: payment?.[2]?.totalAmount,
+      },
+    ],
+  };
+  const summaryPayment3 = {
+    name: t("FT11"),
+    icon: " ",
+    card: [
+      {
+        title: t("customer.SP03"),
+        price: payment?.[3]?.count,
+      },
+      {
+        title: t("customer.SP04"),
+        price: payment?.[3]?.totalLiter,
+      },
+      {
+        title: t("customer.SP05"),
+        price: payment?.[3]?.totalAmount,
       },
     ],
   };
@@ -340,20 +372,19 @@ export default function CustomerDetails() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
           <SummaryCard data={summaryPayment0} />
           <SummaryCard data={summaryPayment1} />
+          <SummaryCard data={summaryPayment2} />
+          <SummaryCard data={summaryPayment3} />
         </div>
       </div>
       <div className="w-full bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-        <h3 className="font-bold text-slate-900 mb-6">
-          {t("customer.purchase")}{" "}
-        </h3>
         {/* <MaterialReactTable table={GetTable(recentSalesColumns,recentSales)} />; */}
-        <GetTable columns={recentSalesColumns} data={recentSales} />
+        <GetTable name={t("customer.purchase")} columns={recentSalesColumns} data={recentSales} />
       </div>
-      <div className="w-full bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-        <h3 className="font-bold text-slate-900 mb-6">{t("customer.dist")}</h3>
+      <div >
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
-          <GetTable columns={fuelDistributionColumns} data={fuelDistribution} />
-          <GetTable columns={monthlyChartColumns} data={monthlyChart} />
+          <GetTable name={t("customer.dist")} columns={fuelDistributionColumns} data={fuelDistribution} />
+          <GetTable name={t("customer.dist2")} columns={monthlyChartColumns} data={monthlyChart} />
         </div>
         <ModalDelete
           isModalOpen={isFaultModalOpen}

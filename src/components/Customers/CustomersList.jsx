@@ -6,10 +6,12 @@ import {
 } from "material-react-table";
 import ModalLoading from "../Modal/ModalLoading";
 import { useTranslation } from "react-i18next";
+import Labels from "../Labels";
 
 const CustomersList = ({ data, globalFilter, onGlobalFilterChange }) => {
   const { t } = useTranslation();
   const navigate = useNavigate("");
+  const TypeLabels = Labels();
   const columns = useMemo(
     () => [
       {
@@ -30,6 +32,7 @@ const CustomersList = ({ data, globalFilter, onGlobalFilterChange }) => {
       {
         accessorKey: "loyaltyLevel", //normal accessorKey
         header: t("customerList4"),
+        Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",
         size: 100,
       },
       {
@@ -50,11 +53,13 @@ const CustomersList = ({ data, globalFilter, onGlobalFilterChange }) => {
       {
         accessorKey: "status",
         header: t("customerList8"),
+        Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",
         size: 100,
       },
       {
         accessorKey: "customerType",
         header: t("customerList9"),
+        Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",
         size: 100,
       },
       {
@@ -121,7 +126,7 @@ const CustomersList = ({ data, globalFilter, onGlobalFilterChange }) => {
         size: 100,
       },
     ],
-    [t],
+    [t,TypeLabels],
   );
   const table = useMaterialReactTable({
     columns,
