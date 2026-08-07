@@ -29,6 +29,10 @@ function MetricLineChart({ data, title, dataKey, color }) {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        interaction: {//burada noktadan çıkarıp yaptık
+          mode: "index",
+          intersect: false,
+        },
         plugins: {
           legend: { display: false },
           tooltip: {
