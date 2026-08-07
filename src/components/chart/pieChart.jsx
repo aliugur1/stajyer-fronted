@@ -1,8 +1,6 @@
 import Chart from "react-apexcharts";
-import { useTranslation } from "react-i18next";
 
-function PieChart({ data } = {}) {
-  const { t } = useTranslation();
+function PieChart({ data, name } = {}) {
   const chartData = data || [];
   const chartColors = {
     neutral: "#ffffff",
@@ -19,7 +17,6 @@ function PieChart({ data } = {}) {
   ];
   // Grafik Ayarları (Options)
   const chartOptions = {
-    
     colors: chartData.map((_, i) => palette[i % palette.length]),
     chart: {
       type: "pie",
@@ -74,7 +71,10 @@ function PieChart({ data } = {}) {
   const chartSeries = chartData.map((d) => d.value);
   return (
     <div className="w-full bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-      <h3 className="font-bold text-slate-900 mb-6">{t("pieChart.name")}</h3>
+      <h3 className="font-bold text-slate-900 mb-6">
+        {name}
+        <c />{" "}
+      </h3>
       <div id="pie-chart" className="w-full flex justify-center">
         {/* React-ApexCharts Bileşeni */}
         <Chart

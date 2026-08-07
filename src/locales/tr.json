@@ -28,7 +28,8 @@
   "barsChart.1": "Satış Adedi",
   "barsChart.2": "Toplam Litre",
   "barsChart.3": "Ciro (₺)",
-  "pieChart.name": "Yakıt & Pompa Durum Dağılımı",
+  "pieChart.name": "Yakıt Dağılımı",
+  "pieChart.name1": "Pompa Durum Dağılımı",
   "tableChart.name1": "Son Satışlar",
   "tableChart.r00": "Pompa Kimliği ",
   "tableChart.r01": "Makbuz Numarası ",
@@ -151,7 +152,7 @@
   "customerList21": "Vergi Dairesi",
   "customerListName": "Müşteriler",
   "customerListButton1": "Yeni Müşteri",
-  "customerListButton3":"BİREYSEL",
+  "customerListButton3": "BİREYSEL",
   "customerListButton2": "KURUMSAL",
   "newCustomer.err": "Yenileme sırasında bir hata oluştu, lütfen tekrar deneyin",
   "newCustomer.n": "Yeni Müşteri",
@@ -260,41 +261,46 @@
   "UCU8": "Semt",
   "UCU9": "Geri",
   "UCU10": "Yükleniyor...",
-  "UCU11": "Güncelle"
-  ,"DSP1":"Pompa İstasyonu İzleme"
-  ,"DSP2":"Toplam Pompalar"
-  ,"DSP3":"Aktif Pompalar"
-  ,"DSP4":"Pasif Pompalar"
-  ,"DSP5":"Arızalı Pompalar"
-  ,"DSP6":"Bakım Pompalar"
-  ,"DSC1":"Müşteri İzleme"
-  ,"DSC2":"Toplam Müşteri Sayısı"
-  ,"DSC3":"Bugünkü Satış Sayısı"
-  ,"DSC4":"Bugünkü Toplam Litre"
-  ,"DSC5":"Bugünkü Gelir"
-  ,"DSC6":"Aylık Gelir"
-  ,"DSC7":"Aktif Müşteriler"
-  ,"DST1":"En İyi Pompa "
-  ,"DST2":"Adı"
-  ,"DST3":"Toplam Gelir"
-  ,"DST4":"Toplam Litre"
-  ,"DST5":"Yakıt Türü"
-  ,"USC11":"Kullanıcı Bilgileri"
-  ,"USC12":"Adınız"
-  ,"USC13":"Soyadınız"
-  ,"USC14":"Rol"
-  ,"USC15":"Telefon Numaranız"
-  ,"USC16":"Email"
-  ,"USC17":"Şehir"
-  ,"USC18":"Semt"
-  ,"USC21":"İstasyon Bilgileri"
-  ,"USC22":"İstasyon Adı"
-  ,"USC23":"İstasyon Kodu"
-  ,"USC24":"İstasyon Adresi"
-  ,"USCb":"Belirtilmemiş"
-  ,"USCe":"Çıkış"
-  ,"USCg":"Güncelle"
-  ,"USCs":"Şifre Değiştir"
+  "UCU11": "Güncelle",
+  "DSP1": "Pompa İstasyonu İzleme",
+  "DSP2": "Toplam Pompalar",
+  "DSP3": "Aktif Pompalar",
+  "DSP4": "Pasif Pompalar",
+  "DSP5": "Arızalı Pompalar",
+  "DSP6": "Bakım Pompalar",
+  "DSC1": "Müşteri İzleme",
+  "DSC2": "Toplam Müşteri Sayısı",
+  "DSC3": "Bugünkü Satış Sayısı",
+  "DSC4": "Bugünkü Toplam Litre",
+  "DSC5": "Bugünkü Gelir",
+  "DSC6": "Aylık Gelir",
+  "DSC7": "Aktif Müşteriler",
+  "DST1": "En İyi Pompa ",
+  "DST2": "Adı",
+  "DST3": "Toplam Gelir",
+  "DST4": "Toplam Litre",
+  "DST5": "Yakıt Türü",
+  "USC11": "Kullanıcı Bilgileri",
+  "USC12": "Adınız",
+  "USC13": "Soyadınız",
+  "USC14": "Rol",
+  "USC15": "Telefon Numaranız",
+  "USC16": "Email",
+  "USC17": "Şehir",
+  "USC18": "Semt",
+  "USC21": "İstasyon Bilgileri",
+  "USC22": "İstasyon Adı",
+  "USC23": "İstasyon Kodu",
+  "USC24": "İstasyon Adresi",
+  "USCb": "Belirtilmemiş",
+  "USCe": "Çıkış",
+  "USCg": "Güncelle",
+  "USCs": "Şifre Değiştir",
+  "FT1": "Premium Dizel",
+  "FT2": "Dizel",
+  "FT3": "Kurşunsuz Benzin",
+  "FT4": "Oktan Benzin",
+  "FT5": "LPG"
 
 
 }
