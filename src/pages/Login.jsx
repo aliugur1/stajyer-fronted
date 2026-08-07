@@ -1,13 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
 export default function Login() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [rememberMe, setRememberMe] = useState(
+    !!localStorage.getItem("rememberedMail"),
+  );
   const { email, setEmail, password, setPassword, loading, login } = useLogin();
-  const [rememberMe, setRememberMe] = useState(false);
+  useEffect(() => {
+    const localEmail = localStorage.getItem("rememberedMail");
+    const localPassword = localStorage.getItem("rememberedPassword");
+    if (localEmail) setEmail(localEmail);
+    if (localPassword) setPassword(localPassword);
+  }, [setEmail, setPassword]);
   const showSignUp = async () => {
     await navigate("/register");
   };
@@ -15,6 +24,8 @@ export default function Login() {
     e.preventDefault();
     login(rememberMe);
   };
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
   return (
     <div>
       <section className="bg-gray-50 dark:bg-gray-900">
@@ -52,17 +63,20 @@ export default function Login() {
                     required
                   />
                 </div>
-                <div>
+                <div  className="flex gab-8 w-full ">
+                  <div className="flex-1">
                   <label
                     htmlFor="password"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     {t("login.password")}
                   </label>
+                  <div className="relative">
                   <input
                     type="password"
                     name="password"
                     id="password"
+                    type={showPassword ? "text" : "password"}
                     autoComplete="current-password"
                     placeholder="••••••••"
                     value={password}
@@ -70,6 +84,24 @@ export default function Login() {
                     className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required
                   />
+                  <button
+                    type="button"
+                    onClick={handleClickShowPassword}
+                    aria-label={
+                      showPassword
+                        ? "hide the password"
+                        : "display the password"
+                    }
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 dark:text-gray-400"
+                  >
+                    {showPassword ? (
+                      <EyeSlashIcon className="w-5 h-5" />
+                    ) : (
+                      <EyeIcon className="w-5 h-5" />
+                    )}
+                  </button>
+                  </div>
+                </div>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-start">
@@ -109,7 +141,7 @@ export default function Login() {
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   {t("login.p")}
                   <a
-                    href="#"
+                    href=""
                     onClick={showSignUp}
                     className=" hover:cursor-pointer font-medium text-primary-600 hover:underline dark:text-primary-500 cursor:pointer;"
                   >
