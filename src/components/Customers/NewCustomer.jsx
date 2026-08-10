@@ -4,6 +4,7 @@ import CompanyCustomer from "../Customers/CompanyCustomer";
 import { usePost } from "../../hooks/usePost";
 import { useTranslation } from "react-i18next";
 import ComplexNavbar from "../Navbar";
+import ModalError from "../Modal/ModalError";
 
 export function NewCustomer() {
   const { t } = useTranslation();
@@ -42,7 +43,7 @@ export function NewCustomer() {
       navigate(`/customers`);
     } catch (err) {
       //gönderirken hata olursa çalışıyor
-      setError(err.response?.data?.message || t("newCustomer.err"));
+      setError(err.response?.data?.message || err.message);
     } finally {
       setLoading(false);
     }
@@ -63,6 +64,11 @@ export function NewCustomer() {
   };
   return (
     <div className="md:pl-16">
+      <ModalError
+        isModalOpen={!!error}
+        message={error}
+        onClose={() => setError("")}
+      />
       <ComplexNavbar />
       <section className="bg-gray-50 dark:bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:min-h-screen lg:py-0">

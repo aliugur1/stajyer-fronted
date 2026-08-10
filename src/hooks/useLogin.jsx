@@ -15,6 +15,7 @@ export function useLogin() {
       const result = await api("/api/auth/login", {
         method: "POST",
         body: JSON.stringify({ email, password }),
+        skipAuthRedirect: true,
       });
       if (result.success) {
         //burada başarılı ise token aktif ediyoruz
