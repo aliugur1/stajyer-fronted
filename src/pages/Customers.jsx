@@ -8,22 +8,21 @@ import ModalError from "../components/Modal/ModalError";
 export default function Customers() {
   const [customersData, setCustomersData] = useState("");
   const [globalFilter, setGlobalFilter] = useState("");
-    const [error, setError] = useState("");
-const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const getAllData = async () => {
       setLoading(true);
-    setError("");
-      try{
-const search = globalFilter ? `&search=${globalFilter}` : "";
-      const data = await api(`/api/customers?${search}`);
-      setCustomersData(data);
+      setError("");
+      try {
+        const search = globalFilter ? `&search=${globalFilter}` : "";
+        const data = await api(`/api/customers?${search}`);
+        setCustomersData(data);
       } catch (err) {
-      setError(err.response?.data?.message || err.message);
-    } finally {
-      setLoading(false);
-    }
-      
+        setError(err.response?.data?.message || err.message);
+      } finally {
+        setLoading(false);
+      }
     };
     getAllData();
   }, [globalFilter]);
@@ -34,9 +33,12 @@ const search = globalFilter ? `&search=${globalFilter}` : "";
   });
   return (
     <div className="md:pl-16">
-      <ModalError isModalOpen={!!error} message={error} onClose={() => setError("")} />
-    <ModalLoading isModalOpen={loading} />
-    <ComplexNavbar />
+      <ModalError
+        isModalOpen={!!error}
+        message={error}
+        onClose={() => setError("")}
+      />
+      <ModalLoading isModalOpen={loading} />
       <ComplexNavbar />
       <div>{customersListData}</div>
     </div>

@@ -29,30 +29,28 @@ export default function ComplexNavbar() {
   const [userData, setUserData] = useState("");
   const [isFaultModalOpen, setIsFaultModalOpen] = useState(false);
   const menuRef = useRef(null);
-    const [error, setError] = useState("");
-const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const getAllData = async () => {
-      try{
-         const data = await api("/api/users/profile");
-      if (data?.data?.profileImageUrl == null) {
-        setUserData({
-          ...data,
-          data: {
-            ...data?.data,
-            profileImageUrl: iconUsers,
-          },
-        });
-      } else {
-        setUserData(data);
+      try {
+        const data = await api("/api/users/profile");
+        if (data?.data?.profileImageUrl == null) {
+          setUserData({
+            ...data,
+            data: {
+              ...data?.data,
+              profileImageUrl: iconUsers,
+            },
+          });
+        } else {
+          setUserData(data);
+        }
+      } catch (err) {
+        setError(err.response?.data?.message || err.message);
+      } finally {
+        setLoading(false);
       }
-      }
-      catch (err) {
-      setError(err.response?.data?.message || err.message);
-    } finally {
-      setLoading(false);
-    }
-     
     };
     getAllData();
   }, []);
@@ -124,8 +122,12 @@ const [loading, setLoading] = useState(false);
   };
   return (
     <>
-    <ModalError isModalOpen={!!error} message={error} onClose={() => setError("")} />
-    <ModalLoading isModalOpen={loading} />
+      <ModalError
+        isModalOpen={!!error}
+        message={error}
+        onClose={() => setError("")}
+      />
+      <ModalLoading isModalOpen={loading} />
       {showSidebar && (
         <div
           className="fixed inset-0 z-30 bg-black/30 md:hidden"
@@ -217,8 +219,11 @@ const [loading, setLoading] = useState(false);
                       }`}
                     >
                       {typeof Icon === "string" ? (
-                        <img className="h-4 w-4 rounded-full object-cover"
-                        src={Icon} alt={label} />
+                        <img
+                          className="h-4 w-4 rounded-full object-cover"
+                          src={Icon}
+                          alt={label}
+                        />
                       ) : (
                         <Icon
                           className={`cursor-pointer h-4 w-4 ${isLastItem ? "text-red-400" : ""}`}
@@ -273,7 +278,6 @@ const [loading, setLoading] = useState(false);
         ) : (
           <Bars3Icon className="h-5 w-5" />
         )}
-        
       </button>
     </>
   );

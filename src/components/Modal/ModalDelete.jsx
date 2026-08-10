@@ -18,7 +18,6 @@ function ModalDelete({ isModalOpen, onClose, id }) {
     };
   }, [isModalOpen]);
   const showDelete = async (e) => {
-    
     if (!e) {
       return;
     }

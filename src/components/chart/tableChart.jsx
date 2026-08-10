@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import Labels from "../Labels";
 function TableChart({ rows01, rows02 }) {
   const { t } = useTranslation();
-  const TypeLabels = Labels()
+  const TypeLabels = Labels();
   return (
     <>
       <div className="w-full bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
@@ -78,7 +78,7 @@ function TableChart({ rows01, rows02 }) {
                   </td>
                   <td className="px-6 py-4">
                     <span className="px-2 py-0.5 bg-neutral-secondary-soft rounded text-xs font-semibold">
-                      {TypeLabels[row02?.fuelType] ||row02?.fuelType}
+                      {TypeLabels[row02?.fuelType] || row02?.fuelType}
                     </span>
                   </td>
 
@@ -100,7 +100,7 @@ function TableChart({ rows01, rows02 }) {
                   </td>
                   <td className="px-6 py-4">
                     <span className="px-2 py-0.5 bg-neutral-secondary-soft rounded text-xs font-semibold">
-                      {TypeLabels[row02?.paymentType] ||row02?.paymentType}
+                      {TypeLabels[row02?.paymentType] || row02?.paymentType}
                     </span>
                   </td>
                   <td className="px-6 py-4">
@@ -163,7 +163,7 @@ function TableChart({ rows01, rows02 }) {
                     scope="row"
                     className="px-6 py-4 font-medium text-heading whitespace-nowrap"
                   >
-                    {TypeLabels[row01?.entityType] ||row01?.entityTypeType}
+                    {TypeLabels[row01?.entityType] || row01?.entityTypeType}
                   </th>
                   <td className="px-6 py-4">
                     <span className="px-2 py-0.5 bg-neutral-secondary-soft rounded text-xs font-semibold">

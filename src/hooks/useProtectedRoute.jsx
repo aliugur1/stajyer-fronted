@@ -6,11 +6,9 @@ export function ProtectedRoute({ children }) {
   const token =
     localStorage.getItem("accessToken") ||
     sessionStorage.getItem("accessToken");
-
   useEffect(() => {
     if (!token) navigate("/");
-  }, [token,navigate]);
-
+  }, [token, navigate]);
   return token ? children : null;
 }
 
@@ -19,10 +17,8 @@ export function PublicRoute({ children }) {
   const token =
     localStorage.getItem("accessToken") ||
     sessionStorage.getItem("accessToken");
-
   useEffect(() => {
     if (token) navigate("/dashboard");
-  }, [token,navigate]);
-
+  }, [token, navigate]);
   return token ? null : children;
 }

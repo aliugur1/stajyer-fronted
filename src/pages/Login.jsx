@@ -12,8 +12,16 @@ export default function Login() {
   const [rememberMe, setRememberMe] = useState(
     !!localStorage.getItem("rememberedMail"),
   );
-  const { email, setEmail, password, setPassword, error, setError, loading, login } =
-    useLogin();
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    error,
+    setError,
+    loading,
+    login,
+  } = useLogin();
   useEffect(() => {
     const localEmail = localStorage.getItem("rememberedMail");
     const localPassword = localStorage.getItem("rememberedPassword");
@@ -72,45 +80,45 @@ export default function Login() {
                     required
                   />
                 </div>
-                <div  className="flex gab-8 w-full ">
+                <div className="flex gab-8 w-full ">
                   <div className="flex-1">
-                  <label
-                    htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    {t("login.password")}
-                  </label>
-                  <div className="relative">
-                  <input
-                    name="password"
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    autoComplete="current-password"
-                    placeholder="••••••••"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    minLength={8}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={handleClickShowPassword}
-                    aria-label={
-                      showPassword
-                        ? "hide the password"
-                        : "display the password"
-                    }
-                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 dark:text-gray-400"
-                  >
-                    {showPassword ? (
-                      <EyeSlashIcon className="w-5 h-5" />
-                    ) : (
-                      <EyeIcon className="w-5 h-5" />
-                    )}
-                  </button>
+                    <label
+                      htmlFor="password"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      {t("login.password")}
+                    </label>
+                    <div className="relative">
+                      <input
+                        name="password"
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        autoComplete="current-password"
+                        placeholder="••••••••"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        minLength={8}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={handleClickShowPassword}
+                        aria-label={
+                          showPassword
+                            ? "hide the password"
+                            : "display the password"
+                        }
+                        className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 dark:text-gray-400"
+                      >
+                        {showPassword ? (
+                          <EyeSlashIcon className="w-5 h-5" />
+                        ) : (
+                          <EyeIcon className="w-5 h-5" />
+                        )}
+                      </button>
+                    </div>
                   </div>
-                </div>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-start">

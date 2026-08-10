@@ -13,7 +13,6 @@ function ModalLoading({ isModalOpen }) {
       document.body.style.overflow = "";
     };
   }, [isModalOpen]);
-
   if (!isModalOpen) {
     return null;
   }

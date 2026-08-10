@@ -8,37 +8,34 @@ import SummaryCard from "../components/SummaryCard";
 import { UsersIcon, StarIcon } from "@heroicons/react/24/solid";
 import ModalLoading from "../components/Modal/ModalLoading";
 import { useTranslation } from "react-i18next";
-import Labels from "../components/Labels"
+import Labels from "../components/Labels";
 import ModalError from "../components/Modal/ModalError";
 
 export default function Dashboard() {
   const { t } = useTranslation();
-  const TypeLabels= Labels();
+  const TypeLabels = Labels();
   const [dashboardData, setDashboardData] = useState("");
-    const [error, setError] = useState("");
-const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const getAllData = async () => {
-    setLoading(true);
-    setError("");
-    try{
-      const data = await api("/api/dashboard?period=30d");
-      setDashboardData(data);
-    }
-    catch (err) {
-      setError(err.response?.data?.message || err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+      setLoading(true);
+      setError("");
+      try {
+        const data = await api("/api/dashboard?period=30d");
+        setDashboardData(data);
+      } catch (err) {
+        setError(err.response?.data?.message || err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
     getAllData(); // burada key gidip token ve korumalı sayfayı kontrol ediyor
   }, []);
-
   const recentChartData = tableChart({
     rows01: dashboardData?.data?.recentActivities,
     rows02: dashboardData?.data?.recentSales,
   });
-
   const summaryDashboardPumps = {
     name: t("DSP1"),
     icon: "fa-solid fa-gas-pump",
@@ -101,7 +98,9 @@ const [loading, setLoading] = useState(false);
     card: [
       {
         title: t("DST5"),
-        price: TypeLabels[dashboardData?.data?.topPumps[0]?.fuelType] ||dashboardData?.data?.topPumps[0]?.fuelType,
+        price:
+          TypeLabels[dashboardData?.data?.topPumps[0]?.fuelType] ||
+          dashboardData?.data?.topPumps[0]?.fuelType,
       },
       {
         title: t("DST2"),
@@ -117,13 +116,14 @@ const [loading, setLoading] = useState(false);
       },
     ],
   };
-
-
   return (
     <div className="md:pl-16">
-      <ModalError isModalOpen={!!error} message={error} onClose={() => setError("")} />
-    <ModalLoading isModalOpen={loading} />
-    <ComplexNavbar />
+      <ModalError
+        isModalOpen={!!error}
+        message={error}
+        onClose={() => setError("")}
+      />
+      <ModalLoading isModalOpen={loading} />
       <ComplexNavbar />
       <div>
         {/*summary kartları*/}
@@ -143,9 +143,8 @@ const [loading, setLoading] = useState(false);
       <div>
         <div className="flex flex-col md:flex-row gap-6">
           <div style={{ flex: 1, minWidth: 0 }}>
-            
             <PieChart
-            name={t("pieChart.name")}
+              name={t("pieChart.name")}
               data={dashboardData?.data?.fuelDistribution?.map((d) => ({
                 label: TypeLabels[d?.fuelType] || d?.fuelType,
                 value: d.percentage,
@@ -153,7 +152,6 @@ const [loading, setLoading] = useState(false);
             />
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
-            
             <PieChart
               data={dashboardData?.data?.pumpStatusDistribution?.map((d) => ({
                 label: TypeLabels[d?.status] || d?.status,

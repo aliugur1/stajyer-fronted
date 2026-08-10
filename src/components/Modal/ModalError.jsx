@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
 function ModalError({ isModalOpen, message, onClose }) {
-
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = "hidden";
@@ -12,7 +11,6 @@ function ModalError({ isModalOpen, message, onClose }) {
       document.body.style.overflow = "";
     };
   }, [isModalOpen]);
-
   if (!isModalOpen) {
     return null;
   }
