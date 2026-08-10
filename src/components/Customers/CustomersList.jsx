@@ -8,7 +8,7 @@ import ModalLoading from "../Modal/ModalLoading";
 import { useTranslation } from "react-i18next";
 import Labels from "../Labels";
 
-const CustomersList = ({ data, globalFilter, onGlobalFilterChange }) => {
+const CustomersList = ({ data, globalFilter, onGlobalFilterChange,pagination ,onPaginationChange ,sorting,onSortingChange ,rowCount}) => {
   const { t } = useTranslation();
   const navigate = useNavigate("");
   const TypeLabels = Labels();
@@ -23,6 +23,7 @@ const CustomersList = ({ data, globalFilter, onGlobalFilterChange }) => {
         accessorKey: "lastName",
         header: t("customerList2"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "companyName",
@@ -34,33 +35,39 @@ const CustomersList = ({ data, globalFilter, onGlobalFilterChange }) => {
         header: t("customerList4"),
         Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "email", //normal accessorKey
         header: t("customerList5"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "phone",
         header: t("customerList6"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "plateNumber",
         header: t("customerList7"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "status",
         header: t("customerList8"),
         Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "customerType",
         header: t("customerList9"),
         Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "totalLiter",
@@ -90,6 +97,7 @@ const CustomersList = ({ data, globalFilter, onGlobalFilterChange }) => {
         accessorKey: "notes",
         header: t("customerList14"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "updateAt",
@@ -99,6 +107,7 @@ const CustomersList = ({ data, globalFilter, onGlobalFilterChange }) => {
             ? new Date(cell.getValue()).toLocaleDateString("tr-TR")
             : "-",
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "createdAt",
@@ -113,26 +122,31 @@ const CustomersList = ({ data, globalFilter, onGlobalFilterChange }) => {
         accessorKey: "address",
         header: t("customerList17"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "city",
         header: t("customerList18"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "district",
         header: t("customerList19"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "taxNumber",
         header: t("customerList20"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "taxOffice",
         header: t("customerList21"),
         size: 100,
+        enableSorting: false,
       },
     ],
     [t, TypeLabels],
@@ -141,13 +155,20 @@ const CustomersList = ({ data, globalFilter, onGlobalFilterChange }) => {
     columns,
     data,
     manualFiltering: true,
+    manualPagination:true,
+    manualSorting:true,
+    rowCount,
     enableColumnActions: false,
     onGlobalFilterChange,
+    onPaginationChange,
+    onSortingChange,
     muiPaginationProps: {
         rowsPerPageOptions: [5, 10, 15, 20],
       },
     state: {
       globalFilter,
+      pagination ,
+      sorting,
     },
     muiTableBodyRowProps: ({ row }) => ({
       onClick: () => {
