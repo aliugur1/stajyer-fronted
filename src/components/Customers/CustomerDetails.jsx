@@ -35,7 +35,9 @@ export default function CustomerDetails() {
         const sort = sorting[0]
           ? `&sortBy=${sorting[0].id}&sortOrder=${sorting[0].desc ? "desc" : "asc"}`
           : "";
-        const detail = await api(`/api/customers/${id}/sales?${page}${search}${sort}`);
+        const detail = await api(
+          `/api/customers/${id}/sales?${page}${search}${sort}`,
+        );
         setSalesData(detail.data);
       } catch (err) {
         setError(err.response?.data?.message || err.message);
@@ -44,7 +46,7 @@ export default function CustomerDetails() {
       }
     };
     getSales();
-  }, [id, globalFilter,pagination,sorting]);
+  }, [id, globalFilter, pagination, sorting]);
   useEffect(() => {
     const getAllData = async () => {
       setLoading(true);
@@ -430,7 +432,7 @@ export default function CustomerDetails() {
           data={recentSales}
           globalFilter={globalFilter}
           onGlobalFilterChange={setGlobalFilter}
-           pagination={pagination}
+          pagination={pagination}
           onPaginationChange={setPagination}
           sorting={sorting}
           onSortingChange={setSorting}
@@ -443,22 +445,22 @@ export default function CustomerDetails() {
             columns={fuelDistributionColumns}
             data={fuelDistribution}
             globalFilter={globalFilter}
-          onGlobalFilterChange={setGlobalFilter}
-           pagination={pagination}
-          onPaginationChange={setPagination}
-          sorting={sorting}
-          onSortingChange={setSorting}
+            onGlobalFilterChange={setGlobalFilter}
+            pagination={pagination}
+            onPaginationChange={setPagination}
+            sorting={sorting}
+            onSortingChange={setSorting}
           />
           <GetTable
             name={t("customer.dist2")}
             columns={monthlyChartColumns}
             data={monthlyChart}
             globalFilter={globalFilter}
-          onGlobalFilterChange={setGlobalFilter}
-           pagination={pagination}
-          onPaginationChange={setPagination}
-          sorting={sorting}
-          onSortingChange={setSorting}
+            onGlobalFilterChange={setGlobalFilter}
+            pagination={pagination}
+            onPaginationChange={setPagination}
+            sorting={sorting}
+            onSortingChange={setSorting}
           />
         </div>
         <ModalDelete

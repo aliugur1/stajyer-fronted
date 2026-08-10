@@ -37,7 +37,9 @@ export default function PumpDetails() {
         const sort = sorting[0]
           ? `&sortBy=${sorting[0].id}&sortOrder=${sorting[0].desc ? "desc" : "asc"}`
           : "";
-        const sales = await api(`/api/pumps/${id}/sales?${page}${search}${sort}`);
+        const sales = await api(
+          `/api/pumps/${id}/sales?${page}${search}${sort}`,
+        );
         setSalesData(sales.data);
       } catch (err) {
         setError(err.response?.data?.message || err.message);
@@ -46,7 +48,7 @@ export default function PumpDetails() {
       }
     };
     getSales();
-  }, [id, globalFilter,pagination,sorting]);
+  }, [id, globalFilter, pagination, sorting]);
   useEffect(() => {
     const getAllData = async () => {
       const data = await api(`/api/pumps/${id}`); //burada ip de statics gidiyoruz
