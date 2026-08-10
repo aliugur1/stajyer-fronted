@@ -75,7 +75,7 @@ export default function ComplexNavbar() {
   const profileMenuItems = [
     {
       label: t("nav.Profil"),
-      icon: user?.profileImageUrl,
+      icon: user?.profileImageUrl || UserCircleIcon,
       path: "/users",
     },
     {
