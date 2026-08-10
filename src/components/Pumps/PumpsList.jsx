@@ -10,7 +10,7 @@ import Labels from "../Labels";
 const PumpsList = ({ data, globalFilter, onGlobalFilterChange }) => {
   const { t } = useTranslation();
   const navigate = useNavigate("");
-  const TypeLabels= Labels();
+  const TypeLabels = Labels();
   const columns = useMemo(
     () => [
       {
@@ -31,7 +31,7 @@ const PumpsList = ({ data, globalFilter, onGlobalFilterChange }) => {
       {
         accessorKey: "fuelType",
         header: t("PL4"),
-       Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",
+        Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",
         size: 100,
       },
       {
@@ -65,7 +65,7 @@ const PumpsList = ({ data, globalFilter, onGlobalFilterChange }) => {
         size: 100,
       },
     ],
-    [t,TypeLabels],
+    [t, TypeLabels],
   );
   const table = useMaterialReactTable({
     columns,
@@ -81,7 +81,6 @@ const PumpsList = ({ data, globalFilter, onGlobalFilterChange }) => {
     state: {
       globalFilter,
     },
-
     // layoutMode: 'grid',//zorla size boyutunu girer
     muiTableBodyRowProps: ({ row }) => ({
       //data yerine row kullanmamız sebebi tabloda row kullanılması

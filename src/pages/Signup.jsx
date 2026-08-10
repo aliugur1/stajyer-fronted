@@ -145,14 +145,12 @@ function SignUp() {
                   type="tel"
                   name="phone"
                   id="phone"
-                  
                   value={formData.phone}
                   onChange={(e) =>
                     setFormData({ ...formData, phone: e.target.value })
                   }
                   minLength={11}
                   maxLength={11}
-                  
                   className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder={t("signUp.phone")}
                   required
@@ -165,37 +163,37 @@ function SignUp() {
                     >
                       {t("login.password")}
                     </label>
-                     <div className="relative">
-                    <input
-                      name="password"
-                      id="password"
-                      type={showPassword ? "text" : "password"}
-                      value={formData.password}
-                      onChange={(e) =>
-                        setFormData({ ...formData, password: e.target.value })
-                      }
-                      minLength={8}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="*********"
-                      required
-                    />
-                    <button
-                    type="button"
-                    onClick={handleClickShowPassword}
-                    aria-label={
-                      showPassword2
-                        ? "hide the password"
-                        : "display the password"
-                    }
-                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 dark:text-gray-400"
-                  >
-                    {showPassword ? (
-                      <EyeSlashIcon className="w-5 h-5" />
-                    ) : (
-                      <EyeIcon className="w-5 h-5" />
-                    )}
-                  </button>
-                  </div>
+                    <div className="relative">
+                      <input
+                        name="password"
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        value={formData.password}
+                        onChange={(e) =>
+                          setFormData({ ...formData, password: e.target.value })
+                        }
+                        minLength={8}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="*********"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={handleClickShowPassword}
+                        aria-label={
+                          showPassword2
+                            ? "hide the password"
+                            : "display the password"
+                        }
+                        className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 dark:text-gray-400"
+                      >
+                        {showPassword ? (
+                          <EyeSlashIcon className="w-5 h-5" />
+                        ) : (
+                          <EyeIcon className="w-5 h-5" />
+                        )}
+                      </button>
+                    </div>
                   </div>
                   <div className="flex-1">
                     <label
@@ -204,40 +202,40 @@ function SignUp() {
                     >
                       {t("signUp.ConfirmPassword")}
                     </label>
-                     <div className="relative">
-                    <input
-                      name="passwordConfirm"
-                      type={showPassword2 ? "text" : "password"}
-                      id="passwordConfirm"
-                      value={formData.passwordConfirm}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          passwordConfirm: e.target.value,
-                        })
-                      }
-                      minLength={8}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="*********"
-                      required
-                    />
-                    <button
-                    type="button"
-                    onClick={handleClickShowPassword2}
-                    aria-label={
-                      showPassword2
-                        ? "hide the password"
-                        : "display the password"
-                    }
-                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 dark:text-gray-400"
-                  >
-                    {showPassword2 ? (
-                      <EyeSlashIcon className="w-5 h-5" />
-                    ) : (
-                      <EyeIcon className="w-5 h-5" />
-                    )}
-                  </button>
-                  </div>
+                    <div className="relative">
+                      <input
+                        name="passwordConfirm"
+                        type={showPassword2 ? "text" : "password"}
+                        id="passwordConfirm"
+                        value={formData.passwordConfirm}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            passwordConfirm: e.target.value,
+                          })
+                        }
+                        minLength={8}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="*********"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={handleClickShowPassword2}
+                        aria-label={
+                          showPassword2
+                            ? "hide the password"
+                            : "display the password"
+                        }
+                        className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 dark:text-gray-400"
+                      >
+                        {showPassword2 ? (
+                          <EyeSlashIcon className="w-5 h-5" />
+                        ) : (
+                          <EyeIcon className="w-5 h-5" />
+                        )}
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <button

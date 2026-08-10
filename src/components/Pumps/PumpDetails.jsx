@@ -24,22 +24,20 @@ export default function PumpDetails() {
   const TypeLabels = Labels();
   const [globalFilter, setGlobalFilter] = useState("");
   const [error, setError] = useState("");
-const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const getSales = async () => {
       setLoading(true);
-    setError("");
-    try{
+      setError("");
+      try {
         const search = globalFilter ? `&search=${globalFilter}` : "";
-      const sales = await api(`/api/pumps/${id}/sales?${search}`);
-      setSalesData(sales.data);
-    }
-    catch (err) {
-      setError(err.response?.data?.message || err.message);
-    } finally {
-      setLoading(false);
-    }
-      
+        const sales = await api(`/api/pumps/${id}/sales?${search}`);
+        setSalesData(sales.data);
+      } catch (err) {
+        setError(err.response?.data?.message || err.message);
+      } finally {
+        setLoading(false);
+      }
     };
     getSales();
   }, [id, globalFilter]);
@@ -234,11 +232,14 @@ const [loading, setLoading] = useState(false);
   //     },
   //   ],
   // });;
-
   return (
     <div className="md:pl-16">
-      <ModalError isModalOpen={!!error} message={error} onClose={() => setError("")} />
-    <ModalLoading isModalOpen={loading} />
+      <ModalError
+        isModalOpen={!!error}
+        message={error}
+        onClose={() => setError("")}
+      />
+      <ModalLoading isModalOpen={loading} />
       <Navbar />
       <div>
         <div className="w-full bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">

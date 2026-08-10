@@ -310,19 +310,14 @@
   "FT11": "NAKİT",
   "FT12": "FİLO KARTI",
   "FT13": "KREDİ KARTI",
-  "FT14":"POMPA",
-  "FT15":"KULLANICI",
-  "FT16":"MÜŞTERİ",
-  "FT17":"SATIŞ",
-  "FT18":"KURUMSAL",
-  "FT19":"BİREYSEL",
-  "FT20":"ALTIN",
-  "FT21":"BRONZ",
-  "FT22":"GÜMÜŞ",
- "FT23":"PLATİN"
-
-
-
-
-
+  "FT14": "POMPA",
+  "FT15": "KULLANICI",
+  "FT16": "MÜŞTERİ",
+  "FT17": "SATIŞ",
+  "FT18": "KURUMSAL",
+  "FT19": "BİREYSEL",
+  "FT20": "ALTIN",
+  "FT21": "BRONZ",
+  "FT22": "GÜMÜŞ",
+  "FT23": "PLATİN"
 }

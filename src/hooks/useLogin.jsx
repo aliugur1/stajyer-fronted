@@ -26,7 +26,6 @@ export function useLogin() {
         otherStorage.removeItem("rememberedPassword");
         storage.setItem("accessToken", result.data.accessToken);
         storage.setItem("user", JSON.stringify(result.data.user));
-
         if (rememberMe) {
           localStorage.setItem("rememberedMail", email);
           localStorage.setItem("rememberedPassword", password);

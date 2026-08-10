@@ -22,7 +22,6 @@ export function Users() {
       setError("");
       try {
         const data = await api("/api/users/profile");
-
         if (data?.data?.profileImageUrl == null) {
           setUserData({
             ...data,
@@ -70,7 +69,6 @@ export function Users() {
         title: t("USC16"),
         price: user?.email,
       },
-      
     ],
   };
   const summaryCard2 = {

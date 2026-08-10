@@ -80,7 +80,10 @@ const CustomersList = ({ data, globalFilter, onGlobalFilterChange }) => {
       {
         accessorKey: "lastPurchaseAt",
         header: t("customerList13"),
-        Cell: ({ cell }) => cell.getValue() ? new Date(cell.getValue()).toLocaleDateString("tr-TR") : "-",
+        Cell: ({ cell }) =>
+          cell.getValue()
+            ? new Date(cell.getValue()).toLocaleDateString("tr-TR")
+            : "-",
         size: 100,
       },
       {
@@ -91,13 +94,19 @@ const CustomersList = ({ data, globalFilter, onGlobalFilterChange }) => {
       {
         accessorKey: "updateAt",
         header: t("customerList15"),
-        Cell: ({ cell }) => cell.getValue() ? new Date(cell.getValue()).toLocaleDateString("tr-TR") : "-",
+        Cell: ({ cell }) =>
+          cell.getValue()
+            ? new Date(cell.getValue()).toLocaleDateString("tr-TR")
+            : "-",
         size: 100,
       },
       {
         accessorKey: "createdAt",
         header: t("customerList16"),
-        Cell: ({ cell }) => cell.getValue() ? new Date(cell.getValue()).toLocaleDateString("tr-TR") : "-",
+        Cell: ({ cell }) =>
+          cell.getValue()
+            ? new Date(cell.getValue()).toLocaleDateString("tr-TR")
+            : "-",
         size: 100,
       },
       {
@@ -126,7 +135,7 @@ const CustomersList = ({ data, globalFilter, onGlobalFilterChange }) => {
         size: 100,
       },
     ],
-    [t,TypeLabels],
+    [t, TypeLabels],
   );
   const table = useMaterialReactTable({
     columns,
