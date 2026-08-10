@@ -3,11 +3,15 @@ import {
   useMaterialReactTable,
 } from "material-react-table";
 
-export function useTable() {
-  const GetTable = ({ name,columns, data }) => {
+export function useTable(  ) {
+
+  const GetTable = ({ name,columns, data,globalFilter, onGlobalFilterChange }) => {
+    
     const table = useMaterialReactTable({
       columns: columns || [],
       data: data || [],
+       manualFiltering: true,
+    onGlobalFilterChange,
       enableRowSelection: true,
       initialState: {
         pagination: { pageSize: 10, pageIndex: 0 },
@@ -15,6 +19,10 @@ export function useTable() {
       muiPaginationProps: {
         rowsPerPageOptions: [5, 10, 15, 20],
       },
+      state: {
+      globalFilter,
+    },
+    
       layoutMode: "grid",
     });
     return (

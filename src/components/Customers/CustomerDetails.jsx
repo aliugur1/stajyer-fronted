@@ -18,6 +18,16 @@ export default function CustomerDetails() {
   const { id } = useParams();
   const [customersDetailData, setCustomersDetailData] = useState("");
   const [isFaultModalOpen, setIsFaultModalOpen] = useState(false);
+  const [globalFilter, setGlobalFilter] = useState("");
+  const [salesData, setSalesData] = useState([]);
+  useEffect(() => {
+    const getSales = async () => {
+      const search = globalFilter ? `&search=${globalFilter}` : "";
+      const detail = await api(`/api/customers/${id}/sales?${search}`);
+      setSalesData(detail.data);
+    };
+    getSales();
+  }, [id, globalFilter]);
   useEffect(() => {
     const getAllData = async () => {
       const data = await api(`/api/customers/${id}`); //burada ip de statics gidiyoruz
@@ -31,7 +41,7 @@ export default function CustomerDetails() {
   const payment = customersDetailData?.data?.paymentDistribution;
   const fuelDistribution = customersDetailData?.data?.fuelDistribution;
   const monthlyChart = customersDetailData?.data?.monthlyChart;
-  const recentSales = customersDetailData?.data?.recentSales;
+  const recentSales = salesData;
   // console.log(customersDetailData); // burada tüm data yı yakıyoruz
   //console.log(customer); //burada data içindeki data yı yakalıyoruz müşteri bilgileri
   const { GetTable } = useTable();
@@ -40,8 +50,8 @@ export default function CustomerDetails() {
     () => [
       {
         accessorKey: "fuelType", //access nested data with dot notation
-        header: t("customer.FDB1"), 
-        Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",//BURAYA data.name yazmadık çünkü veriyi data olarak alıyoruz
+        header: t("customer.FDB1"),
+        Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-", //BURAYA data.name yazmadık çünkü veriyi data olarak alıyoruz
         size: 80,
       },
       {
@@ -60,7 +70,7 @@ export default function CustomerDetails() {
         size: 70,
       },
     ],
-    [t,TypeLabels],
+    [t, TypeLabels],
   );
   const monthlyChartColumns = useMemo(
     () => [
@@ -126,7 +136,7 @@ export default function CustomerDetails() {
         size: 100,
       },
     ],
-    [t,TypeLabels],
+    [t, TypeLabels],
   );
   const summaryCustomer1 = {
     name: t("customer.SC11"),
@@ -168,12 +178,11 @@ export default function CustomerDetails() {
       },
       {
         title: t("customerList4"),
-        price: TypeLabels[customer?.loyaltyLevel] ||customer?.loyaltyLevel,
+        price: TypeLabels[customer?.loyaltyLevel] || customer?.loyaltyLevel,
       },
       {
         title: t("customerList8"),
-        price:
-          TypeLabels[customer?.status] ||customer?.status,
+        price: TypeLabels[customer?.status] || customer?.status,
       },
       {
         title: t("customer.SC25"),
@@ -378,13 +387,26 @@ export default function CustomerDetails() {
       </div>
       <div className="w-full bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
         {/* <MaterialReactTable table={GetTable(recentSalesColumns,recentSales)} />; */}
-        <GetTable name={t("customer.purchase")} columns={recentSalesColumns} data={recentSales} />
+        <GetTable
+          name={t("customer.purchase")}
+          columns={recentSalesColumns}
+          data={recentSales}
+          globalFilter={globalFilter}
+          onGlobalFilterChange={setGlobalFilter}
+        />
       </div>
-      <div >
-        
+      <div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
-          <GetTable name={t("customer.dist")} columns={fuelDistributionColumns} data={fuelDistribution} />
-          <GetTable name={t("customer.dist2")} columns={monthlyChartColumns} data={monthlyChart} />
+          <GetTable
+            name={t("customer.dist")}
+            columns={fuelDistributionColumns}
+            data={fuelDistribution}
+          />
+          <GetTable
+            name={t("customer.dist2")}
+            columns={monthlyChartColumns}
+            data={monthlyChart}
+          />
         </div>
         <ModalDelete
           isModalOpen={isFaultModalOpen}

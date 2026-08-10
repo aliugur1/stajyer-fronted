@@ -20,7 +20,16 @@ export default function PumpDetails() {
   const [fuelSummaryData, setFuelSummaryData] = useState("");
   const [maintenanceData, setMaintenanceData] = useState("");
   const [salesData, setSalesData] = useState("");
-  const TypeLabels= Labels();
+  const TypeLabels = Labels();
+  const [globalFilter, setGlobalFilter] = useState("");
+  useEffect(() => {
+    const getSales = async () => {
+      const search = globalFilter ? `&search=${globalFilter}` : "";
+      const sales = await api(`/api/pumps/${id}/sales?${search}`);
+      setSalesData(sales.data);
+    };
+    getSales();
+  }, [id, globalFilter]);
   useEffect(() => {
     const getAllData = async () => {
       const data = await api(`/api/pumps/${id}`); //burada ip de statics gidiyoruz
@@ -101,7 +110,9 @@ export default function PumpDetails() {
     card: [
       {
         title: t("PSF2"),
-        price: fuelSummaryData[0]?.fuelType,
+        price:
+          TypeLabels[fuelSummaryData[0]?.fuelType] ||
+          fuelSummaryData[0]?.fuelType,
       },
       {
         title: t("PSF3"),
@@ -187,11 +198,14 @@ export default function PumpDetails() {
       {
         accessorKey: "createdAt",
         header: t("PT8"),
-        Cell: ({ cell }) => cell.getValue() ? new Date(cell.getValue()).toLocaleDateString("tr-TR") : "-",
+        Cell: ({ cell }) =>
+          cell.getValue()
+            ? new Date(cell.getValue()).toLocaleDateString("tr-TR")
+            : "-",
         size: 100,
       },
     ],
-    [t,TypeLabels],
+    [t, TypeLabels],
   );
   // const table = useMaterialReactTable({
   //   columns,
@@ -258,7 +272,12 @@ export default function PumpDetails() {
       <div className="w-full bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
         <h3 className="font-bold text-slate-900 mb-6">{t("PD3")} </h3>
         {/* <MaterialReactTable table={table} /> */}
-        <GetTable columns={columns} data={salesData ?? []} pageSize={4} />
+        <GetTable
+          columns={columns}
+          data={salesData ?? []}
+          globalFilter={globalFilter}
+          onGlobalFilterChange={setGlobalFilter}
+        />
       </div>
       <div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
