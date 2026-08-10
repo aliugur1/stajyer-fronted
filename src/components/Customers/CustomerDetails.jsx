@@ -205,15 +205,15 @@ export default function CustomerDetails() {
       },
       {
         title: t("customer.SC25"),
-        price: customer?.companyName,
+        price: customer?.companyName || "---",
       },
       {
         title: t("customer.SC26"),
-        price: customer?.taxNumber,
+        price: customer?.taxNumber || "---",
       },
       {
         title: t("customer.SC27"),
-        price: customer?.taxOffice,
+        price: customer?.taxOffice|| "---",
       },
     ],
   };
