@@ -26,6 +26,7 @@ export default function Customers() {
     };
     getAllData();
   }, [globalFilter]);
+  console.log(customersData)
   const customersListData = customersList({
     data: customersData?.data ?? [],
     globalFilter,

@@ -72,6 +72,7 @@ const PumpsList = ({ data, globalFilter, onGlobalFilterChange }) => {
     data,
     manualFiltering: true,
     onGlobalFilterChange,
+    enableColumnActions: false,
     initialState: {
       pagination: { pageSize: 10, pageIndex: 0 },
     },

@@ -16,10 +16,7 @@ export function useTable() {
       data: data || [],
       manualFiltering: true,
       onGlobalFilterChange,
-      enableRowSelection: true,
-      initialState: {
-        pagination: { pageSize: 10, pageIndex: 0 },
-      },
+      enableColumnActions: false,
       muiPaginationProps: {
         rowsPerPageOptions: [5, 10, 15, 20],
       },

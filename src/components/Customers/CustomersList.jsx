@@ -141,7 +141,11 @@ const CustomersList = ({ data, globalFilter, onGlobalFilterChange }) => {
     columns,
     data,
     manualFiltering: true,
+    enableColumnActions: false,
     onGlobalFilterChange,
+    muiPaginationProps: {
+        rowsPerPageOptions: [5, 10, 15, 20],
+      },
     state: {
       globalFilter,
     },
