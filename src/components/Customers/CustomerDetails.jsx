@@ -22,6 +22,7 @@ export default function CustomerDetails() {
   const [globalFilter, setGlobalFilter] = useState("");
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 });
   const [sorting, setSorting] = useState([]);
+  const [salesRowCount, setSalesRowCount] = useState(0);
   const [salesData, setSalesData] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -35,8 +36,11 @@ export default function CustomerDetails() {
         const sort = sorting[0]
           ? `&sortBy=${sorting[0].id}&sortOrder=${sorting[0].desc ? "desc" : "asc"}`
           : "";
-        const detail = await api(`/api/customers/${id}/sales?${page}${search}${sort}`);
+        const detail = await api(
+          `/api/customers/${id}/sales?${page}${search}${sort}`,
+        );
         setSalesData(detail.data);
+        setSalesRowCount(detail.pagination?.totalItems ?? 0);
       } catch (err) {
         setError(err.response?.data?.message || err.message);
       } finally {
@@ -44,7 +48,7 @@ export default function CustomerDetails() {
       }
     };
     getSales();
-  }, [id, globalFilter,pagination,sorting]);
+  }, [id, globalFilter, pagination, sorting]);
   useEffect(() => {
     const getAllData = async () => {
       setLoading(true);
@@ -430,10 +434,11 @@ export default function CustomerDetails() {
           data={recentSales}
           globalFilter={globalFilter}
           onGlobalFilterChange={setGlobalFilter}
-           pagination={pagination}
+          pagination={pagination}
           onPaginationChange={setPagination}
           sorting={sorting}
           onSortingChange={setSorting}
+          rowCount={salesRowCount}
         />
       </div>
       <div>
@@ -443,22 +448,24 @@ export default function CustomerDetails() {
             columns={fuelDistributionColumns}
             data={fuelDistribution}
             globalFilter={globalFilter}
-          onGlobalFilterChange={setGlobalFilter}
-           pagination={pagination}
-          onPaginationChange={setPagination}
-          sorting={sorting}
-          onSortingChange={setSorting}
+            onGlobalFilterChange={setGlobalFilter}
+            pagination={pagination}
+            onPaginationChange={setPagination}
+            sorting={sorting}
+            onSortingChange={setSorting}
+            rowCount={salesRowCount}
           />
           <GetTable
             name={t("customer.dist2")}
             columns={monthlyChartColumns}
             data={monthlyChart}
             globalFilter={globalFilter}
-          onGlobalFilterChange={setGlobalFilter}
-           pagination={pagination}
-          onPaginationChange={setPagination}
-          sorting={sorting}
-          onSortingChange={setSorting}
+            onGlobalFilterChange={setGlobalFilter}
+            pagination={pagination}
+            onPaginationChange={setPagination}
+            sorting={sorting}
+            onSortingChange={setSorting}
+            rowCount={salesRowCount}
           />
         </div>
         <ModalDelete

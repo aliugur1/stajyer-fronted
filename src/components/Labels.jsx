@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 
 function Labels() {
   const { t } = useTranslation();
-
   const TypeLabels = {
     PREMIUM_DIESEL: t("FT1"),
     DIESEL: t("FT2"),

@@ -10,34 +10,34 @@ export function useTable() {
     data,
     globalFilter,
     onGlobalFilterChange,
-     pagination,
-  onPaginationChange,
-  sorting,
-  onSortingChange,
-  rowCount,
+    pagination,
+    onPaginationChange,
+    sorting,
+    onSortingChange,
+    rowCount,
   }) => {
     const table = useMaterialReactTable({
       columns: columns || [],
       data: data || [],
-     manualFiltering: true,
-    manualPagination: true,
-    manualSorting: true,
-    rowCount,
-    enableColumnActions: false,
-    onGlobalFilterChange,
-    onPaginationChange,
-    onSortingChange,
-    initialState: {
-      pagination: { pageSize: 10, pageIndex: 0 },
-    },
-    muiPaginationProps: {
-      rowsPerPageOptions: [5, 10, 15, 20],
-    },
-    state: {
-      globalFilter,
-      pagination,
-      sorting,
-    },
+      manualFiltering: true,
+      manualPagination: true,
+      manualSorting: true,
+      rowCount,
+      enableColumnActions: false,
+      onGlobalFilterChange,
+      onPaginationChange,
+      onSortingChange,
+      initialState: {
+        pagination: { pageSize: 10, pageIndex: 0 },
+      },
+      muiPaginationProps: {
+        rowsPerPageOptions: [5, 10, 15, 20],
+      },
+      state: {
+        globalFilter,
+        pagination,
+        sorting,
+      },
       layoutMode: "grid",
     });
     return (

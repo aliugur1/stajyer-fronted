@@ -25,6 +25,7 @@ export default function PumpDetails() {
   const [globalFilter, setGlobalFilter] = useState("");
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 });
   const [sorting, setSorting] = useState([]);
+  const [salesRowCount, setSalesRowCount] = useState(0);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -37,8 +38,11 @@ export default function PumpDetails() {
         const sort = sorting[0]
           ? `&sortBy=${sorting[0].id}&sortOrder=${sorting[0].desc ? "desc" : "asc"}`
           : "";
-        const sales = await api(`/api/pumps/${id}/sales?${page}${search}${sort}`);
+        const sales = await api(
+          `/api/pumps/${id}/sales?${page}${search}${sort}`,
+        );
         setSalesData(sales.data);
+        setSalesRowCount(sales.pagination?.totalItems ?? 0);
       } catch (err) {
         setError(err.response?.data?.message || err.message);
       } finally {
@@ -46,16 +50,14 @@ export default function PumpDetails() {
       }
     };
     getSales();
-  }, [id, globalFilter,pagination,sorting]);
+  }, [id, globalFilter, pagination, sorting]);
   useEffect(() => {
     const getAllData = async () => {
       const data = await api(`/api/pumps/${id}`); //burada ip de statics gidiyoruz
-      const sales = await api(`/api/pumps/${id}/sales`);
       setStatisticsData(data.data.statistics); // bunu pumps ta yakalayabilirdim ama ben ilk başta statistics  kendim yaz
       // setRecentSalesData(data.data.recentSales);
       setFuelSummaryData(data.data.fuelSummary);
       setMaintenanceData(data.data.maintenance);
-      setSalesData(sales.data);
     }; //şimdi bir daha kodu değiştirme hem objeyi asagıdaki şekilde getirebiliriz
     getAllData();
   }, [id]);
@@ -302,6 +304,7 @@ export default function PumpDetails() {
           onPaginationChange={setPagination}
           sorting={sorting}
           onSortingChange={setSorting}
+          rowCount={salesRowCount}
         />
       </div>
       <div>
