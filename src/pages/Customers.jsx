@@ -32,7 +32,6 @@ export default function Customers() {
     };
     getAllData();
   }, [globalFilter, pagination, sorting]);
-  console.log(customersData);
   return (
     <div className="md:pl-16">
       <ModalError
