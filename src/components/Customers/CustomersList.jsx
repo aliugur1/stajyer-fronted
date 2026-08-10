@@ -8,7 +8,16 @@ import ModalLoading from "../Modal/ModalLoading";
 import { useTranslation } from "react-i18next";
 import Labels from "../Labels";
 
-const CustomersList = ({ data, globalFilter, onGlobalFilterChange,pagination ,onPaginationChange ,sorting,onSortingChange ,rowCount}) => {
+const CustomersList = ({
+  data,
+  globalFilter,
+  onGlobalFilterChange,
+  pagination,
+  onPaginationChange,
+  sorting,
+  onSortingChange,
+  rowCount,
+}) => {
   const { t } = useTranslation();
   const navigate = useNavigate("");
   const TypeLabels = Labels();
@@ -155,19 +164,19 @@ const CustomersList = ({ data, globalFilter, onGlobalFilterChange,pagination ,on
     columns,
     data,
     manualFiltering: true,
-    manualPagination:true,
-    manualSorting:true,
+    manualPagination: true,
+    manualSorting: true,
     rowCount,
     enableColumnActions: false,
     onGlobalFilterChange,
     onPaginationChange,
     onSortingChange,
     muiPaginationProps: {
-        rowsPerPageOptions: [5, 10, 15, 20],
-      },
+      rowsPerPageOptions: [5, 10, 15, 20],
+    },
     state: {
       globalFilter,
-      pagination ,
+      pagination,
       sorting,
     },
     muiTableBodyRowProps: ({ row }) => ({

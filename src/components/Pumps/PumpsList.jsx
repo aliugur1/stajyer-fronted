@@ -7,7 +7,16 @@ import {
 import { useTranslation } from "react-i18next";
 import Labels from "../Labels";
 
-const PumpsList = ({ data, globalFilter, onGlobalFilterChange }) => {
+const PumpsList = ({
+  data,
+  globalFilter,
+  onGlobalFilterChange,
+  pagination,
+  onPaginationChange,
+  sorting,
+  onSortingChange,
+  rowCount,
+}) => {
   const { t } = useTranslation();
   const navigate = useNavigate("");
   const TypeLabels = Labels();
@@ -27,12 +36,14 @@ const PumpsList = ({ data, globalFilter, onGlobalFilterChange }) => {
         accessorKey: "serialNumber", //normal accessorKey
         header: t("PL3"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "fuelType",
         header: t("PL4"),
         Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "status",
@@ -71,8 +82,13 @@ const PumpsList = ({ data, globalFilter, onGlobalFilterChange }) => {
     columns,
     data,
     manualFiltering: true,
-    onGlobalFilterChange,
+    manualPagination: true,
+    manualSorting: true,
+    rowCount,
     enableColumnActions: false,
+    onGlobalFilterChange,
+    onPaginationChange,
+    onSortingChange,
     initialState: {
       pagination: { pageSize: 10, pageIndex: 0 },
     },
@@ -81,6 +97,8 @@ const PumpsList = ({ data, globalFilter, onGlobalFilterChange }) => {
     },
     state: {
       globalFilter,
+      pagination,
+      sorting,
     },
     // layoutMode: 'grid',//zorla size boyutunu girer
     muiTableBodyRowProps: ({ row }) => ({
