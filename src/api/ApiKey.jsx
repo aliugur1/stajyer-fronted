@@ -1,7 +1,9 @@
 export const API_URL = "http://localhost:3000";
 
 export async function api(path, { skipAuthRedirect = false, ...options } = {}) {
-  const token = localStorage.getItem("accessToken") || sessionStorage.getItem("accessToken");
+  const token =
+    localStorage.getItem("accessToken") ||
+    sessionStorage.getItem("accessToken");
   const response = await fetch(`${API_URL}${path}`, {
     ...options,
     headers: {
@@ -20,7 +22,6 @@ export async function api(path, { skipAuthRedirect = false, ...options } = {}) {
       sessionStorage.removeItem("user");
       window.location.href = "/";
     }
-
     throw body;
   }
   return body;

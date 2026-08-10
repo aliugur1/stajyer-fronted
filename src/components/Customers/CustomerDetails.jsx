@@ -22,6 +22,7 @@ export default function CustomerDetails() {
   const [globalFilter, setGlobalFilter] = useState("");
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 });
   const [sorting, setSorting] = useState([]);
+  const [salesRowCount, setSalesRowCount] = useState(0);
   const [salesData, setSalesData] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -39,6 +40,7 @@ export default function CustomerDetails() {
           `/api/customers/${id}/sales?${page}${search}${sort}`,
         );
         setSalesData(detail.data);
+        setSalesRowCount(detail.pagination?.totalItems ?? 0);
       } catch (err) {
         setError(err.response?.data?.message || err.message);
       } finally {
@@ -436,6 +438,7 @@ export default function CustomerDetails() {
           onPaginationChange={setPagination}
           sorting={sorting}
           onSortingChange={setSorting}
+          rowCount={salesRowCount}
         />
       </div>
       <div>
@@ -450,6 +453,7 @@ export default function CustomerDetails() {
             onPaginationChange={setPagination}
             sorting={sorting}
             onSortingChange={setSorting}
+            rowCount={salesRowCount}
           />
           <GetTable
             name={t("customer.dist2")}
@@ -461,6 +465,7 @@ export default function CustomerDetails() {
             onPaginationChange={setPagination}
             sorting={sorting}
             onSortingChange={setSorting}
+            rowCount={salesRowCount}
           />
         </div>
         <ModalDelete
