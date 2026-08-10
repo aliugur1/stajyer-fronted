@@ -23,6 +23,8 @@ export default function PumpDetails() {
   const [salesData, setSalesData] = useState("");
   const TypeLabels = Labels();
   const [globalFilter, setGlobalFilter] = useState("");
+  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 });
+  const [sorting, setSorting] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -31,7 +33,11 @@ export default function PumpDetails() {
       setError("");
       try {
         const search = globalFilter ? `&search=${globalFilter}` : "";
-        const sales = await api(`/api/pumps/${id}/sales?${search}`);
+        const page = `&page=${pagination.pageIndex + 1}&limit=${pagination.pageSize}`;
+        const sort = sorting[0]
+          ? `&sortBy=${sorting[0].id}&sortOrder=${sorting[0].desc ? "desc" : "asc"}`
+          : "";
+        const sales = await api(`/api/pumps/${id}/sales?${page}${search}${sort}`);
         setSalesData(sales.data);
       } catch (err) {
         setError(err.response?.data?.message || err.message);
@@ -40,7 +46,7 @@ export default function PumpDetails() {
       }
     };
     getSales();
-  }, [id, globalFilter]);
+  }, [id, globalFilter,pagination,sorting]);
   useEffect(() => {
     const getAllData = async () => {
       const data = await api(`/api/pumps/${id}`); //burada ip de statics gidiyoruz
@@ -173,11 +179,13 @@ export default function PumpDetails() {
         accessorKey: "attendantName", //bunu pump list ten aldım buna ayrı bir hook kurup her seferinde bunları yazmayız onu zamanla ogrene,cem
         header: t("PT1"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "unitPrice",
         header: t("PT2"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "liter",
@@ -194,17 +202,20 @@ export default function PumpDetails() {
         header: t("PT5"),
         Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "paymentType",
         header: t("PT6"),
         Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "plateNumber",
         header: t("PT7"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "createdAt",
@@ -287,6 +298,10 @@ export default function PumpDetails() {
           data={salesData ?? []}
           globalFilter={globalFilter}
           onGlobalFilterChange={setGlobalFilter}
+          pagination={pagination}
+          onPaginationChange={setPagination}
+          sorting={sorting}
+          onSortingChange={setSorting}
         />
       </div>
       <div>

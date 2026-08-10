@@ -20,6 +20,8 @@ export default function CustomerDetails() {
   const [customersDetailData, setCustomersDetailData] = useState("");
   const [isFaultModalOpen, setIsFaultModalOpen] = useState(false);
   const [globalFilter, setGlobalFilter] = useState("");
+  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 });
+  const [sorting, setSorting] = useState([]);
   const [salesData, setSalesData] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -29,7 +31,11 @@ export default function CustomerDetails() {
       setError("");
       try {
         const search = globalFilter ? `&search=${globalFilter}` : "";
-        const detail = await api(`/api/customers/${id}/sales?${search}`);
+        const page = `&page=${pagination.pageIndex + 1}&limit=${pagination.pageSize}`;
+        const sort = sorting[0]
+          ? `&sortBy=${sorting[0].id}&sortOrder=${sorting[0].desc ? "desc" : "asc"}`
+          : "";
+        const detail = await api(`/api/customers/${id}/sales?${page}${search}${sort}`);
         setSalesData(detail.data);
       } catch (err) {
         setError(err.response?.data?.message || err.message);
@@ -38,7 +44,7 @@ export default function CustomerDetails() {
       }
     };
     getSales();
-  }, [id, globalFilter]);
+  }, [id, globalFilter,pagination,sorting]);
   useEffect(() => {
     const getAllData = async () => {
       setLoading(true);
@@ -71,22 +77,26 @@ export default function CustomerDetails() {
         accessorKey: "fuelType", //access nested data with dot notation
         header: t("customer.FDB1"),
         Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-", //BURAYA data.name yazmadık çünkü veriyi data olarak alıyoruz
-        size: 80,
+        size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "count",
         header: t("customer.FDB2"),
-        size: 70,
+        size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "totalLiter",
         header: t("customer.FDB3"),
-        size: 70,
+        size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "totalAmount",
         header: t("customer.FDB4"),
-        size: 70,
+        size: 100,
+        enableSorting: false,
       },
     ],
     [t, TypeLabels],
@@ -97,21 +107,25 @@ export default function CustomerDetails() {
         accessorKey: "label", //access nested data with dot notation
         header: t("customer.MCC1"), //BURAYA data.name yazmadık çünkü veriyi data olarak alıyoruz
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "salesCount",
         header: t("customer.MCC2"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "totalLiter",
         header: t("customer.MCC3"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "totalAmount",
         header: t("customer.MCC4"),
         size: 100,
+        enableSorting: false,
       },
     ],
     [t],
@@ -122,22 +136,26 @@ export default function CustomerDetails() {
         accessorKey: "attendantName",
         header: t("customer.RSC1"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "plateNumber",
         header: t("customer.RSC2"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "fuelType", //access nested data with dot notation
         header: t("customer.RSC3"), //BURAYA data.name yazmadık çünkü veriyi data olarak alıyoruz
         Cell: ({ cell }) => TypeLabels[cell.getValue()] ?? "-",
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "unitPrice",
         header: t("customer.RSC4"),
         size: 100,
+        enableSorting: false,
       },
       {
         accessorKey: "liter",
@@ -153,6 +171,7 @@ export default function CustomerDetails() {
         accessorKey: "receiptNumber",
         header: t("customer.RSC7"),
         size: 100,
+        enableSorting: false,
       },
     ],
     [t, TypeLabels],
@@ -411,6 +430,10 @@ export default function CustomerDetails() {
           data={recentSales}
           globalFilter={globalFilter}
           onGlobalFilterChange={setGlobalFilter}
+           pagination={pagination}
+          onPaginationChange={setPagination}
+          sorting={sorting}
+          onSortingChange={setSorting}
         />
       </div>
       <div>
@@ -419,11 +442,23 @@ export default function CustomerDetails() {
             name={t("customer.dist")}
             columns={fuelDistributionColumns}
             data={fuelDistribution}
+            globalFilter={globalFilter}
+          onGlobalFilterChange={setGlobalFilter}
+           pagination={pagination}
+          onPaginationChange={setPagination}
+          sorting={sorting}
+          onSortingChange={setSorting}
           />
           <GetTable
             name={t("customer.dist2")}
             columns={monthlyChartColumns}
             data={monthlyChart}
+            globalFilter={globalFilter}
+          onGlobalFilterChange={setGlobalFilter}
+           pagination={pagination}
+          onPaginationChange={setPagination}
+          sorting={sorting}
+          onSortingChange={setSorting}
           />
         </div>
         <ModalDelete
