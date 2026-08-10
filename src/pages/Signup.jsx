@@ -5,6 +5,7 @@ import { API_URL } from "../api/ApiKey";
 import ModalLoading from "..//components/Modal/ModalLoading";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "react-i18next";
+import ModalError from "..//components/Modal/ModalError";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -49,18 +50,14 @@ function SignUp() {
   };
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
-  if (error) {
-    return <div className="text-red-500">{error}</div>;
-  }
-  if (loading) {
-    return (
-      <div className="text-blue-500">
-        <ModalLoading />{" "}
-      </div>
-    );
-  }
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
+      <ModalError
+        isModalOpen={!!error}
+        message={error}
+        onClose={() => setError("")}
+      />
+      <ModalLoading isModalOpen={loading} />
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
           href="/"

@@ -7,6 +7,7 @@ import ModalDelete from "../Modal/ModalDelete";
 import { usePatch } from "../../hooks/usePatch";
 import SummaryCard from "../SummaryCard";
 import ModalLoading from "../Modal/ModalLoading";
+import ModalError from "../Modal/ModalError";
 import { useTranslation } from "react-i18next";
 import Labels from "../Labels";
 
@@ -20,18 +21,39 @@ export default function CustomerDetails() {
   const [isFaultModalOpen, setIsFaultModalOpen] = useState(false);
   const [globalFilter, setGlobalFilter] = useState("");
   const [salesData, setSalesData] = useState([]);
+  const [error, setError] = useState("");
+const [loading, setLoading] = useState(false);
   useEffect(() => {
     const getSales = async () => {
-      const search = globalFilter ? `&search=${globalFilter}` : "";
+      setLoading(true);
+    setError("");
+      try{
+        const search = globalFilter ? `&search=${globalFilter}` : "";
       const detail = await api(`/api/customers/${id}/sales?${search}`);
       setSalesData(detail.data);
+      }
+      catch (err) {
+      setError(err.response?.data?.message || err.message);
+    } finally {
+      setLoading(false);
+    }
     };
     getSales();
   }, [id, globalFilter]);
   useEffect(() => {
     const getAllData = async () => {
-      const data = await api(`/api/customers/${id}`); //burada ip de statics gidiyoruz
+      setLoading(true);
+    setError("");
+      try{
+        const data = await api(`/api/customers/${id}`); //burada ip de statics gidiyoruz
       setCustomersDetailData(data);
+      }
+
+      catch (err) {
+      setError(err.response?.data?.message || err.message);
+    } finally {
+      setLoading(false);
+    }
     }; //şimdi bir daha kodu değiştirme hem objeyi asagıdaki şekilde getirebiliriz
     getAllData();
   }, [id]);
@@ -317,15 +339,10 @@ export default function CustomerDetails() {
     await PatchData("customers", id, "/status", { status: newStatus });
     window.location.reload(); // güncel veriyi çekmek için bunu yazdım getAllData yı burada kullanamayız çünkü use effect içinde ona özgü kısa yoldan pencereyi render ettik
   };
-  if (!customer) {
-    return (
-      <div>
-        <ModalLoading />{" "}
-      </div>
-    );
-  }
   return (
     <div className="md:pl-16">
+      <ModalError isModalOpen={!!error} message={error} onClose={() => setError("")} />
+    <ModalLoading isModalOpen={loading} />
       <Navbar />
       <div>
         <div className="w-full bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">

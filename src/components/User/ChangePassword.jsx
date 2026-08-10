@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "react-i18next";
 import ComplexNavbar from "../Navbar";
+import ModalLoading from "../Modal/ModalLoading";
+import ModalError from "../Modal/ModalError";
+
 export function ChangePassword() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -49,14 +52,11 @@ export function ChangePassword() {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
   const handleClickShowPassword3 = () => setShowPassword3((show) => !show);
-  if (error) {
-    return <div className="text-red-500">{error}</div>;
-  }
-  if (loading) {
-    return <div className="text-blue-500">{t("UCPl")} </div>;
-  }
+
   return (
     <div className="md:pl-16">
+      <ModalError isModalOpen={!!error} message={error} onClose={() => setError("")} />
+    <ModalLoading isModalOpen={loading} />
           <ComplexNavbar />
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

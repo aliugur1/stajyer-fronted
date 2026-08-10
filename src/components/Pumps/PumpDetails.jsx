@@ -8,6 +8,7 @@ import { useTable } from "../../hooks/useTable";
 import ModalLoading from "../Modal/ModalLoading";
 import { useTranslation } from "react-i18next";
 import Labels from "../Labels";
+import ModalError from "../Modal/ModalError";
 // import {
 //   MaterialReactTable,
 //   useMaterialReactTable,
@@ -22,11 +23,23 @@ export default function PumpDetails() {
   const [salesData, setSalesData] = useState("");
   const TypeLabels = Labels();
   const [globalFilter, setGlobalFilter] = useState("");
+  const [error, setError] = useState("");
+const [loading, setLoading] = useState(false);
   useEffect(() => {
     const getSales = async () => {
-      const search = globalFilter ? `&search=${globalFilter}` : "";
+      setLoading(true);
+    setError("");
+    try{
+        const search = globalFilter ? `&search=${globalFilter}` : "";
       const sales = await api(`/api/pumps/${id}/sales?${search}`);
       setSalesData(sales.data);
+    }
+    catch (err) {
+      setError(err.response?.data?.message || err.message);
+    } finally {
+      setLoading(false);
+    }
+      
     };
     getSales();
   }, [id, globalFilter]);
@@ -220,16 +233,12 @@ export default function PumpDetails() {
   //       desc: true, // true yaparak en büyük ID/en yeni tarihi en üste getiririz
   //     },
   //   ],
-  // });
-  if (!pump) {
-    return (
-      <div>
-        <ModalLoading />{" "}
-      </div>
-    );
-  }
+  // });;
+
   return (
     <div className="md:pl-16">
+      <ModalError isModalOpen={!!error} message={error} onClose={() => setError("")} />
+    <ModalLoading isModalOpen={loading} />
       <Navbar />
       <div>
         <div className="w-full bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">

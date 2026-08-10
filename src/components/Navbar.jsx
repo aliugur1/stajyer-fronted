@@ -17,6 +17,8 @@ import iconUsers from "../assets/iconUsers.png";
 import mepsanlogo from "../assets/mepsanlogo.jpeg";
 import ModalExit from "../components/Modal/ModalExit";
 import { useTranslation } from "react-i18next";
+import ModalError from "../components/Modal/ModalError";
+import ModalLoading from "./Modal/ModalLoading";
 // sidebar nav list
 export default function ComplexNavbar() {
   const { t, i18n } = useTranslation();
@@ -27,9 +29,12 @@ export default function ComplexNavbar() {
   const [userData, setUserData] = useState("");
   const [isFaultModalOpen, setIsFaultModalOpen] = useState(false);
   const menuRef = useRef(null);
+    const [error, setError] = useState("");
+const [loading, setLoading] = useState(false);
   useEffect(() => {
     const getAllData = async () => {
-      const data = await api("/api/users/profile");
+      try{
+         const data = await api("/api/users/profile");
       if (data?.data?.profileImageUrl == null) {
         setUserData({
           ...data,
@@ -41,6 +46,13 @@ export default function ComplexNavbar() {
       } else {
         setUserData(data);
       }
+      }
+      catch (err) {
+      setError(err.response?.data?.message || err.message);
+    } finally {
+      setLoading(false);
+    }
+     
     };
     getAllData();
   }, []);
@@ -112,6 +124,8 @@ export default function ComplexNavbar() {
   };
   return (
     <>
+    <ModalError isModalOpen={!!error} message={error} onClose={() => setError("")} />
+    <ModalLoading isModalOpen={loading} />
       {showSidebar && (
         <div
           className="fixed inset-0 z-30 bg-black/30 md:hidden"
