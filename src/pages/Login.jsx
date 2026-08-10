@@ -3,6 +3,8 @@ import { useLogin } from "../hooks/useLogin";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import ModalLoading from "../components/Modal/ModalLoading";
+import ModalError from "../components/Modal/ModalError";
 
 export default function Login() {
   const { t } = useTranslation();
@@ -10,7 +12,8 @@ export default function Login() {
   const [rememberMe, setRememberMe] = useState(
     !!localStorage.getItem("rememberedMail"),
   );
-  const { email, setEmail, password, setPassword, loading, login } = useLogin();
+  const { email, setEmail, password, setPassword, error, setError, loading, login } =
+    useLogin();
   useEffect(() => {
     const localEmail = localStorage.getItem("rememberedMail");
     const localPassword = localStorage.getItem("rememberedPassword");
@@ -28,6 +31,12 @@ export default function Login() {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   return (
     <div>
+      <ModalError
+        isModalOpen={!!error}
+        message={error}
+        onClose={() => setError("")}
+      />
+      <ModalLoading isModalOpen={loading} />
       <section className="bg-gray-50 dark:bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <a

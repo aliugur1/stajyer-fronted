@@ -42,7 +42,16 @@ export function useLogin() {
       setLoading(false);
     }
   };
-  return { email, setEmail, password, setPassword, error, loading, login };
+  return {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    error,
+    setError,
+    loading,
+    login,
+  };
 }
 
 export default useLogin;

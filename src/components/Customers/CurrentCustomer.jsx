@@ -6,21 +6,30 @@ import { usePut } from "../../hooks/usePut";
 import ModalLoading from "../Modal/ModalLoading";
 import { useTranslation } from "react-i18next";
 import ComplexNavbar from "../Navbar";
-
+import ModalError from "../Modal/ModalError";
 function CurrentCustomer() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { id } = useParams();
   const [customerData, setCustomerData] = useState("");
+  const [error, setError] = useState("");
+const [loading, setLoading] = useState(false);
   useEffect(() => {
     const getAllData = async () => {
-      const data = await api(`/api/customers/${id}`); //burada ip de statics gidiyoruz
+      setLoading(true);
+    setError("");
+      try{
+        const data = await api(`/api/customers/${id}`); //burada ip de statics gidiyoruz
       setCustomerData(data.data.customer);
+      }
+      catch (err) {
+      setError(err.response?.data?.message || err.message);
+    } finally {
+      setLoading(false);
+    }
     }; //şimdi bir daha kodu değiştirme hem objeyi asagıdaki şekilde getirebiliriz
     getAllData();
   }, [id]);
-  const [loading, setLoading] = useState("");
-  const [error, setError] = useState("");
   const { PutData } = usePut();
   const currentUser = async () => {
     //burada backend veri gönderiyoruz
@@ -64,15 +73,10 @@ function CurrentCustomer() {
     }
     return null;
   };
-  if (!customerData) {
-    return (
-      <div>
-        <ModalLoading />{" "}
-      </div>
-    );
-  }
   return (
     <div className="md:pl-16">
+      <ModalError isModalOpen={!!error} message={error} onClose={() => setError("")} />
+    <ModalLoading isModalOpen={loading} />
       <ComplexNavbar />
       <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:min-h-screen lg:py-0">

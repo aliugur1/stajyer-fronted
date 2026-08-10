@@ -4,7 +4,6 @@ import {
   MaterialReactTable,
   useMaterialReactTable,
 } from "material-react-table";
-import ModalLoading from "../Modal/ModalLoading";
 import { useTranslation } from "react-i18next";
 import Labels from "../Labels";
 
@@ -93,17 +92,10 @@ const PumpsList = ({ data, globalFilter, onGlobalFilterChange }) => {
       sx: { cursor: "pointer" },
     }),
   });
-  if (!data) {
-    return (
-      <div>
-        <ModalLoading />{" "}
-      </div>
-    );
-  }
   return (
     <div className="w-full bg-white rounded-2xl shadow-sm p-6">
       <h3 className="font-bold text-slate-900 mb-6">{t("PL9")}</h3>
-      <MaterialReactTable table={table} />;
+      <MaterialReactTable table={table} />
     </div>
   );
 };

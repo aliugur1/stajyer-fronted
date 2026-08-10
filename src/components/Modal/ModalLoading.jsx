@@ -23,9 +23,6 @@ function ModalLoading({ isModalOpen }) {
         <h5 className="mb-2 text-xl font-semibold tracking-tight text-heading opacity-20">
           MEPSAN
         </h5>
-        <p className="font-normal text-body opacity-20">
-          <ModalLoading />
-        </p>
         <div
           role="status"
           className="absolute -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2"

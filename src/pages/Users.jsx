@@ -6,6 +6,7 @@ import iconUser from "../assets/iconUsers.png";
 import SummaryCard from "../components/SummaryCard";
 import ModalExit from "../components/Modal/ModalExit";
 import ModalLoading from "../components/Modal/ModalLoading";
+import ModalError from "..//components/Modal/ModalError";
 import { useTranslation } from "react-i18next";
 
 export function Users() {
@@ -13,17 +14,27 @@ export function Users() {
   const { t } = useTranslation();
   const [userData, setUserData] = useState("");
   const [isFaultModalOpen, setIsFaultModalOpen] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const getAllData = async () => {
-      const data = await api("/api/users/profile");
+      setLoading(true);
+      setError("");
+      try {
+        const data = await api("/api/users/profile");
 
-      if (data?.data?.profileImageUrl == null) {
-        setUserData({
-          ...data,
-          data: { ...data?.data, profileImageUrl: iconUser },
-        });
-      } else {
-        setUserData(data);
+        if (data?.data?.profileImageUrl == null) {
+          setUserData({
+            ...data,
+            data: { ...data?.data, profileImageUrl: iconUser },
+          });
+        } else {
+          setUserData(data);
+        }
+      } catch (err) {
+        setError(err.response?.data?.message || err.message);
+      } finally {
+        setLoading(false);
       }
     };
     getAllData();
@@ -88,15 +99,14 @@ export function Users() {
       },
     ],
   };
-  if (!userData) {
-    return (
-      <div>
-        <ModalLoading />{" "}
-      </div>
-    );
-  }
   return (
     <div className="md:pl-16">
+      <ModalError
+        isModalOpen={!!error}
+        message={error}
+        onClose={() => setError("")}
+      />
+      <ModalLoading isModalOpen={loading} />
       <Navbar />
       <div>
         <div>
