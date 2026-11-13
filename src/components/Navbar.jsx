@@ -34,7 +34,7 @@ export default function ComplexNavbar() {
   useEffect(() => {
     const getAllData = async () => {
       try {
-        const data = await api("/api/users/profile");
+        const data = await api("/api/users");
         if (data?.data?.profileImageUrl == null) {
           setUserData({
             ...data,

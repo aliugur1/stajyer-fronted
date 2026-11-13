@@ -38,6 +38,7 @@ export function Users() {
     };
     getAllData();
   }, []);
+  console.log(userData)
   const user = userData.data;
   const showUser = async () => {
     await navigate(`/users/profile`);
